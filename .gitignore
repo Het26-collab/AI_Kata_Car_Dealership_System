@@ -1,0 +1,15 @@
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+backend/prisma/dev.db
+backend/prisma/dev.db-journal
+backend/prisma/test.db
+backend/prisma/test.db-journal
+backend/coverage/
+frontend/coverage/
+frontend/dist/
+backend/.env
+backend/.env.test
+backend/.tmp/
+.DS_Store
+
