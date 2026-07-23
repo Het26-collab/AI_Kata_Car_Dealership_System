@@ -3,6 +3,7 @@ import { Card } from "./Card";
 import { StatusBadge } from "./StatusBadge";
 import { Button } from "./Button";
 import { formatCurrency } from "../utils/format";
+import { handleImageError, DEFAULT_CAR_IMAGE } from "../utils/images";
 
 interface VehicleCardProps {
   vehicle: Vehicle;
@@ -28,11 +29,14 @@ export function VehicleCard({
 
   return (
     <Card hoverable className={`flex flex-col overflow-hidden ${isLowStock ? "ring-1 ring-amber-500/50" : ""}`}>
+      {/* Image section */}
       <div className="relative h-44 w-full overflow-hidden bg-surface-container">
         <img
-          src={vehicle.image}
+          src={vehicle.image || DEFAULT_CAR_IMAGE}
           alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
-          className="h-full w-full object-cover"
+          className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+          onError={handleImageError}
+          referrerPolicy="no-referrer"
           loading="lazy"
         />
         <div className="absolute right-sm top-sm flex items-center gap-xs">
@@ -46,7 +50,17 @@ export function VehicleCard({
           )}
           <StatusBadge status={vehicle.status} />
         </div>
+        {/* Fuel type pill */}
+        <div className="absolute left-sm bottom-sm">
+          <span className="inline-flex items-center rounded-full bg-black/60 px-sm py-xs text-[10px] font-medium uppercase tracking-wider text-white backdrop-blur-sm">
+            {vehicle.fuelType === "Electric" && "⚡ "}
+            {vehicle.fuelType === "Hybrid" && "🍃 "}
+            {vehicle.fuelType}
+          </span>
+        </div>
       </div>
+
+      {/* Details section */}
       <div className="flex flex-1 flex-col p-md">
         <p className="text-label-sm uppercase tracking-wide text-primary">
           {vehicle.category} &bull; {vehicle.dealerId}
@@ -57,14 +71,37 @@ export function VehicleCard({
         <p className="text-body-md text-on-surface-variant">
           {vehicle.trim} &bull; {vehicle.year}
         </p>
+
+        {/* Color & transmission */}
+        {(vehicle.color || vehicle.transmission) && (
+          <div className="mt-sm flex flex-wrap gap-xs">
+            {vehicle.color && (
+              <span className="inline-flex items-center gap-xs rounded-full bg-surface-container px-sm py-xs text-[10px] font-medium text-on-surface-variant">
+                <span className="material-symbols-outlined text-[12px]">palette</span>
+                {vehicle.color}
+              </span>
+            )}
+            {vehicle.transmission && (
+              <span className="inline-flex items-center gap-xs rounded-full bg-surface-container px-sm py-xs text-[10px] font-medium text-on-surface-variant">
+                <span className="material-symbols-outlined text-[12px]">settings</span>
+                {vehicle.transmission.replace("Automatic", "Auto").replace("Manual", "Manual").replace("Single-Speed Direct Drive", "Direct")}
+              </span>
+            )}
+          </div>
+        )}
+
         <p className="mt-md text-label-sm uppercase tracking-wide text-on-surface-variant">Fleet Value</p>
         <p className="text-headline-md text-on-surface">{formatCurrency(vehicle.price)}</p>
 
         <div className="mt-sm flex items-center justify-between text-label-md">
           <span className="text-on-surface-variant">Quantity: {vehicle.quantity}</span>
           {isOutOfStock && <span className="font-semibold text-error">Out of Stock</span>}
+          {vehicle.mileage > 0 && (
+            <span className="text-on-surface-variant">{vehicle.mileage.toLocaleString()} mi</span>
+          )}
         </div>
 
+        {/* Action buttons */}
         <div className="mt-md flex flex-col gap-sm">
           <Button variant="primary" onClick={() => onPurchase(vehicle)} disabled={isOutOfStock} isLoading={isPurchasing}>
             Purchase
@@ -74,9 +111,6 @@ export function VehicleCard({
               <Button variant="secondary" size="sm" onClick={() => onRestock?.(vehicle)}>
                 <span className="material-symbols-outlined text-[16px]">add_box</span>
                 Restock
-              </Button>
-              <Button variant="primary" onClick={() => onEdit(vehicle)}>
-                View Details
               </Button>
               <div className="flex gap-sm">
                 <Button variant="secondary" size="sm" className="flex-1" onClick={() => onEdit(vehicle)}>

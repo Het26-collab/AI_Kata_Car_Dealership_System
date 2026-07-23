@@ -15,6 +15,8 @@ import { VEHICLE_CATEGORIES, type Vehicle, type VehicleDraft, type VehicleFilter
 import { ApiError } from "../api/client";
 import { useAuth } from "../hooks/useAuth";
 
+import { exportVehiclesToCsv } from "../utils/export";
+
 export function InventoryPage() {
   const [makeInput, setMakeInput] = useState("");
   const [modelInput, setModelInput] = useState("");
@@ -46,6 +48,15 @@ export function InventoryPage() {
   const [deletingVehicle, setDeletingVehicle] = useState<Vehicle | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [purchasingId, setPurchasingId] = useState<string | null>(null);
+
+  function handleExport() {
+    exportVehiclesToCsv(vehicles, `driveflow-inventory-${new Date().toISOString().slice(0, 10)}.csv`);
+    showToast({
+      variant: "success",
+      title: "Export completed",
+      description: `Exported ${vehicles.length} vehicle records to CSV file.`,
+    });
+  }
 
   function openAddForm() {
     setEditingVehicle(null);
@@ -168,7 +179,7 @@ export function InventoryPage() {
           <h1 className="text-headline-md text-on-surface">Inventory Management</h1>
           <p className="text-body-md text-on-surface-variant">Manage and monitor your enterprise fleet in real-time.</p>
         </div>
-        <Button size="sm" variant="secondary">
+        <Button size="sm" variant="secondary" onClick={handleExport}>
           <span className="material-symbols-outlined text-[18px]">download</span>
           Export List
         </Button>

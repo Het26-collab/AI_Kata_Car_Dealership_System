@@ -4,15 +4,16 @@ import { VehicleCard } from "./VehicleCard";
 
 const sampleVehicle = {
   id: "v-1",
+  vin: "VIN1234567890",
   dealerId: "D-100",
   make: "Toyota",
   model: "Camry",
   trim: "LE",
   year: 2024,
-  category: "Sedan",
+  category: "Sedan" as const,
   price: 29000,
   quantity: 2,
-  status: "Available" as const,
+  status: "In Stock" as const,
   image: "https://example.com/image.jpg",
   createdAt: "2024-01-01",
   updatedAt: "2024-01-01",

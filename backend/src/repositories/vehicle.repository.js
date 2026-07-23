@@ -7,6 +7,10 @@ function buildWhere(filters = {}) {
     where.category = filters.category;
   }
 
+  if (filters.status) {
+    where.status = filters.status;
+  }
+
   if (filters.make) {
     where.make = { contains: filters.make };
   }
@@ -19,6 +23,9 @@ function buildWhere(filters = {}) {
     where.OR = [
       { make: { contains: filters.search } },
       { model: { contains: filters.search } },
+      { trim: { contains: filters.search } },
+      { vin: { contains: filters.search } },
+      { color: { contains: filters.search } },
     ];
   }
 

@@ -3,7 +3,14 @@ import { Modal } from "./Modal";
 import { Button } from "./Button";
 import { Input } from "./Input";
 import { Select } from "./Select";
-import { VEHICLE_CATEGORIES, VEHICLE_STATUSES, type Vehicle, type VehicleDraft } from "../types/vehicle";
+import {
+  VEHICLE_CATEGORIES,
+  VEHICLE_STATUSES,
+  FUEL_TYPES,
+  TRANSMISSIONS,
+  type Vehicle,
+  type VehicleDraft,
+} from "../types/vehicle";
 
 interface VehicleFormModalProps {
   isOpen: boolean;
@@ -23,6 +30,11 @@ const EMPTY_FORM: VehicleDraft = {
   price: 0,
   quantity: 1,
   status: "In Stock",
+  mileage: 0,
+  color: "",
+  fuelType: "Gasoline",
+  transmission: "Automatic",
+  description: "",
 };
 
 export function VehicleFormModal({ isOpen, vehicle, onClose, onSubmit }: VehicleFormModalProps) {
@@ -45,6 +57,11 @@ export function VehicleFormModal({ isOpen, vehicle, onClose, onSubmit }: Vehicle
               price: vehicle.price,
               quantity: vehicle.quantity,
               status: vehicle.status,
+              mileage: vehicle.mileage || 0,
+              color: vehicle.color || "",
+              fuelType: vehicle.fuelType || "Gasoline",
+              transmission: vehicle.transmission || "Automatic",
+              description: vehicle.description || "",
             }
           : EMPTY_FORM
       );
@@ -156,7 +173,7 @@ export function VehicleFormModal({ isOpen, vehicle, onClose, onSubmit }: Vehicle
           label="Dealer ID"
           value={form.dealerId}
           onChange={(e) => setForm((f) => ({ ...f, dealerId: e.target.value }))}
-          placeholder="e.g. #MB-2024-001"
+          placeholder="e.g. GM-MB-001"
         />
         <Input
           label="Price (USD)"
@@ -172,6 +189,51 @@ export function VehicleFormModal({ isOpen, vehicle, onClose, onSubmit }: Vehicle
           error={errors.quantity}
           onChange={(e) => setForm((f) => ({ ...f, quantity: Number(e.target.value) }))}
         />
+        <Input
+          label="Mileage"
+          type="number"
+          value={form.mileage}
+          onChange={(e) => setForm((f) => ({ ...f, mileage: Number(e.target.value) }))}
+          placeholder="0"
+        />
+        <Input
+          label="Color"
+          value={form.color}
+          onChange={(e) => setForm((f) => ({ ...f, color: e.target.value }))}
+          placeholder="e.g. Midnight Black Metallic"
+        />
+        <Select
+          label="Fuel Type"
+          value={form.fuelType}
+          onChange={(e) => setForm((f) => ({ ...f, fuelType: e.target.value }))}
+        >
+          {FUEL_TYPES.map((ft) => (
+            <option key={ft} value={ft}>
+              {ft}
+            </option>
+          ))}
+        </Select>
+        <Select
+          label="Transmission"
+          value={form.transmission}
+          onChange={(e) => setForm((f) => ({ ...f, transmission: e.target.value }))}
+        >
+          {TRANSMISSIONS.map((t) => (
+            <option key={t} value={t}>
+              {t}
+            </option>
+          ))}
+        </Select>
+        <div className="sm:col-span-2">
+          <label className="mb-xs block text-label-md text-on-surface-variant">Description</label>
+          <textarea
+            value={form.description}
+            onChange={(e) => setForm((f) => ({ ...f, description: e.target.value }))}
+            placeholder="Vehicle description, features, and highlights..."
+            rows={3}
+            className="w-full rounded-lg border border-outline-variant bg-surface-container-lowest px-md py-sm text-body-md text-on-surface outline-none transition-colors focus:border-primary focus:ring-1 focus:ring-primary"
+          />
+        </div>
       </form>
     </Modal>
   );

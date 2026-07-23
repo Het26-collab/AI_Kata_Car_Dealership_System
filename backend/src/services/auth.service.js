@@ -11,7 +11,10 @@ function sanitizeUser(user) {
   return {
     id: user.id,
     email: user.email,
+    name: user.name || "Fleet Manager",
     role: user.role,
+    dealership: user.dealership || "Global Motors",
+    avatar: user.avatar || "",
     createdAt: user.createdAt,
   };
 }

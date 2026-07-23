@@ -7,9 +7,17 @@ export const createVehicleSchema = z.object({
   year: z.coerce.number().int().min(1900).max(2100).optional(),
   price: z.coerce.number({ required_error: "Price is required" }).nonnegative("Price must be greater than or equal to 0"),
   quantity: z.coerce.number({ required_error: "Quantity is required" }).int().nonnegative("Quantity must be greater than or equal to 0"),
+  trim: z.string().optional(),
   vin: z.string().optional(),
+  dealerId: z.string().optional(),
   status: z.string().optional(),
+  image: z.string().optional(),
   imageUrl: z.string().optional(),
+  mileage: z.coerce.number().int().nonnegative().optional(),
+  color: z.string().optional(),
+  fuelType: z.string().optional(),
+  transmission: z.string().optional(),
+  description: z.string().optional(),
 });
 
 export const updateVehicleSchema = createVehicleSchema.partial();

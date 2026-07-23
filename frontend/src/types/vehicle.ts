@@ -21,10 +21,16 @@ export interface Vehicle {
   quantity: number;
   status: VehicleStatus;
   image: string;
+  mileage: number;
+  color: string;
+  fuelType: string;
+  transmission: string;
+  description: string;
   createdAt: string;
+  updatedAt?: string;
 }
 
-export type VehicleDraft = Omit<Vehicle, "id" | "createdAt" | "image"> &
+export type VehicleDraft = Omit<Vehicle, "id" | "createdAt" | "updatedAt" | "image"> &
   Partial<Pick<Vehicle, "image">>;
 
 export interface VehicleFilters {
@@ -45,11 +51,16 @@ export interface InventoryMixEntry {
 
 export interface FleetStats {
   totalVehicles: number;
+  totalModels: number;
   available: number;
+  reserved: number;
+  inTransit: number;
+  sold: number;
   lowStock: number;
   soldToday: number;
   availablePct: number;
   inventoryMix: InventoryMixEntry[];
+  totalValue: number;
 }
 
 export const VEHICLE_CATEGORIES: VehicleCategory[] = [
@@ -66,4 +77,20 @@ export const VEHICLE_STATUSES: VehicleStatus[] = [
   "Reserved",
   "In Transit",
   "Sold",
+];
+
+export const FUEL_TYPES = [
+  "Gasoline",
+  "Diesel",
+  "Hybrid",
+  "Electric",
+  "Plug-in Hybrid",
+];
+
+export const TRANSMISSIONS = [
+  "Automatic",
+  "Manual",
+  "CVT",
+  "Dual-Clutch",
+  "Single-Speed Direct Drive",
 ];

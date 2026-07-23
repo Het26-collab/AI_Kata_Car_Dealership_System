@@ -12,4 +12,4 @@ backend/.env
 backend/.env.test
 backend/.tmp/
 .DS_Store
-
+*.tsbuildinfo

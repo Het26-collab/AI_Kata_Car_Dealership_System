@@ -65,7 +65,7 @@ describe("InventoryPage search endpoint filters", () => {
     await user.type(screen.getByLabelText(/max price/i), "36000");
 
     await waitFor(() => {
-      const latest = capturedCalls.at(-1);
+      const latest = capturedCalls[capturedCalls.length - 1];
       expect(latest?.options).toEqual({ useSearchEndpoint: true });
       expect(latest?.filters).toMatchObject({
         make: "Toyota",

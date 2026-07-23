@@ -74,13 +74,20 @@ export function Sidebar({ onAddVehicle, isOpen, onCloseMobile }: SidebarProps) {
           )}
 
           <div className="mt-sm flex flex-col gap-xs border-t border-outline-variant pt-sm">
-            <a
-              href="#"
-              className="flex items-center gap-md rounded-lg p-md text-label-md text-on-secondary-container/70 transition-all hover:bg-surface-container-high"
+            <NavLink
+              to="/support"
+              onClick={onCloseMobile}
+              className={({ isActive }) =>
+                `flex items-center gap-md rounded-lg p-md text-label-md transition-all duration-200 ${
+                  isActive
+                    ? "bg-secondary-container font-semibold text-on-secondary-container"
+                    : "text-on-secondary-container/70 hover:bg-surface-container-high"
+                }`
+              }
             >
               <span className="material-symbols-outlined">support_agent</span>
               Support
-            </a>
+            </NavLink>
             <button
               type="button"
               onClick={logout}

@@ -11,17 +11,31 @@ model User {
   id           String   @id @default(cuid())
   email        String   @unique
   passwordHash String
+  name         String   @default("Fleet Manager")
   role         String   @default("user")
+  dealership   String   @default("Global Motors")
+  avatar       String   @default("")
   createdAt    DateTime @default(now())
 }
 
 model Vehicle {
-  id        String   @id @default(cuid())
-  make      String
-  model     String
-  category  String
-  price     Int
-  quantity  Int
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id           String   @id @default(cuid())
+  make         String
+  model        String
+  trim         String   @default("Base")
+  year         Int      @default(2024)
+  category     String
+  vin          String   @default("")
+  dealerId     String   @default("GM-001")
+  price        Int
+  quantity     Int
+  status       String   @default("In Stock")
+  image        String   @default("")
+  mileage      Int      @default(0)
+  color        String   @default("")
+  fuelType     String   @default("Gasoline")
+  transmission String   @default("Automatic")
+  description  String   @default("")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 }

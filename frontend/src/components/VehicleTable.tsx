@@ -1,6 +1,7 @@
 import type { Vehicle } from "../types/vehicle";
 import { StatusBadge } from "./StatusBadge";
 import { formatCurrency, formatDate, maskVin } from "../utils/format";
+import { handleImageError, DEFAULT_CAR_IMAGE } from "../utils/images";
 
 interface VehicleTableProps {
   vehicles: Vehicle[];
@@ -43,9 +44,11 @@ export function VehicleTable({ vehicles, onRowClick }: VehicleTableProps) {
               <td className="px-lg py-md">
                 <div className="flex items-center gap-md">
                   <img
-                    src={vehicle.image}
+                    src={vehicle.image || DEFAULT_CAR_IMAGE}
                     alt=""
                     className="h-10 w-10 rounded-md object-cover"
+                    onError={handleImageError}
+                    referrerPolicy="no-referrer"
                     loading="lazy"
                   />
                   <div>
