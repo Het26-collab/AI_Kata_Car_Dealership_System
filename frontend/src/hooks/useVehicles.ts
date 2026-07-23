@@ -58,6 +58,8 @@ export function useVehicles(filters: VehicleFilters, options: UseVehiclesOptions
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     filters.search,
+    filters.make,
+    filters.model,
     filters.category,
     filters.status,
     filters.minPrice,

@@ -11,6 +11,7 @@ interface VehicleCardProps {
   onDelete: (vehicle: Vehicle) => void;
   onPurchase: (vehicle: Vehicle) => void;
   onRestock?: (vehicle: Vehicle) => void;
+  onInspect?: (vehicle: Vehicle) => void;
   isPurchasing?: boolean;
   canManage?: boolean;
 }
@@ -21,6 +22,7 @@ export function VehicleCard({
   onDelete,
   onPurchase,
   onRestock,
+  onInspect,
   isPurchasing = false,
   canManage = false,
 }: VehicleCardProps) {
@@ -30,7 +32,10 @@ export function VehicleCard({
   return (
     <Card hoverable className={`flex flex-col overflow-hidden ${isLowStock ? "ring-1 ring-amber-500/50" : ""}`}>
       {/* Image section */}
-      <div className="relative h-44 w-full overflow-hidden bg-surface-container">
+      <div
+        className="relative h-44 w-full overflow-hidden bg-surface-container cursor-pointer group"
+        onClick={() => onInspect?.(vehicle)}
+      >
         <img
           src={vehicle.image || DEFAULT_CAR_IMAGE}
           alt={`${vehicle.year} ${vehicle.make} ${vehicle.model}`}
@@ -39,6 +44,11 @@ export function VehicleCard({
           referrerPolicy="no-referrer"
           loading="lazy"
         />
+        <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+          <span className="rounded-full bg-white/90 px-md py-xs text-label-sm font-semibold text-on-surface shadow-md">
+            Inspect Specs &rarr;
+          </span>
+        </div>
         <div className="absolute right-sm top-sm flex items-center gap-xs">
           {isLowStock && (
             <span

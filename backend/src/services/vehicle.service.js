@@ -150,7 +150,7 @@ export async function createVehicle(body) {
 }
 
 export async function listVehicles(filters = {}) {
-  const limit = filters.limit !== undefined && !isNaN(Number(filters.limit)) ? Math.max(1, Number(filters.limit)) : 20;
+  const limit = filters.limit !== undefined && !isNaN(Number(filters.limit)) ? Math.max(1, Number(filters.limit)) : 100;
   const offset = filters.offset !== undefined && !isNaN(Number(filters.offset)) ? Math.max(0, Number(filters.offset)) : 0;
 
   const normalizedFilters = {
@@ -170,7 +170,7 @@ export async function listVehicles(filters = {}) {
 }
 
 export async function searchVehicles(filters = {}) {
-  const limit = filters.limit !== undefined && !isNaN(Number(filters.limit)) ? Math.max(1, Number(filters.limit)) : 20;
+  const limit = filters.limit !== undefined && !isNaN(Number(filters.limit)) ? Math.max(1, Number(filters.limit)) : 100;
   const offset = filters.offset !== undefined && !isNaN(Number(filters.offset)) ? Math.max(0, Number(filters.offset)) : 0;
 
   const normalizedFilters = {

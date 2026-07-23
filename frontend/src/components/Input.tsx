@@ -26,7 +26,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <input
             ref={ref}
             id={inputId}
-            className={`w-full rounded-lg border bg-surface-container-lowest px-md py-md text-body-md text-on-surface placeholder:text-on-surface-variant/70 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/40 ${
+            className={`h-[44px] w-full rounded-lg border bg-surface-container-lowest px-md text-body-md text-on-surface placeholder:text-on-surface-variant/70 transition-colors focus:outline-none focus:ring-2 focus:ring-primary/40 ${
               error ? "border-error" : "border-outline-variant focus:border-primary"
             } ${leadingIcon ? "pl-2xl" : ""} ${className}`}
             aria-invalid={Boolean(error)}

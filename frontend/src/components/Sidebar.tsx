@@ -31,13 +31,20 @@ export function Sidebar({ onAddVehicle, isOpen, onCloseMobile }: SidebarProps) {
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center gap-sm px-sm py-md">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary-container text-on-primary-container">
-            <span className="material-symbols-outlined text-title-lg">directions_car</span>
+        <div className="flex items-center gap-md px-sm py-md border-b border-outline-variant/50 pb-md mb-xs">
+          <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 text-white shadow-md ring-1 ring-white/20">
+            <span className="material-symbols-outlined text-[22px]">directions_car</span>
+            <span className="absolute -top-1 -right-1 flex h-3 w-3">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 ring-2 ring-white"></span>
+            </span>
           </div>
-          <div>
-            <h2 className="text-title-lg font-bold text-on-surface">Global Motors</h2>
-            <p className="text-label-md text-on-surface-variant">{user?.dealership ?? "Enterprise Fleet"}</p>
+          <div className="overflow-hidden">
+            <div className="flex items-center gap-xs">
+              <h2 className="text-title-md font-extrabold tracking-tight text-on-surface truncate">Global Motors</h2>
+              <span className="rounded bg-primary/10 px-xs py-[2px] text-[10px] font-bold text-primary uppercase tracking-wide">PRO</span>
+            </div>
+            <p className="text-label-sm font-medium text-on-surface-variant truncate">AutoFleet Pro &bull; Enterprise</p>
           </div>
         </div>
 

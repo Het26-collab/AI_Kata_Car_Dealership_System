@@ -17,6 +17,8 @@ import { useAuth } from "../hooks/useAuth";
 
 import { exportVehiclesToCsv } from "../utils/export";
 
+import { VehicleDetailsDrawer } from "../components/VehicleDetailsDrawer";
+
 export function InventoryPage() {
   const [makeInput, setMakeInput] = useState("");
   const [modelInput, setModelInput] = useState("");
@@ -46,6 +48,7 @@ export function InventoryPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingVehicle, setEditingVehicle] = useState<Vehicle | null>(null);
   const [deletingVehicle, setDeletingVehicle] = useState<Vehicle | null>(null);
+  const [inspectingVehicle, setInspectingVehicle] = useState<Vehicle | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
   const [purchasingId, setPurchasingId] = useState<string | null>(null);
 
@@ -201,8 +204,12 @@ export function InventoryPage() {
             onChange={(e) => setModelInput(e.target.value)}
             placeholder="e.g. Camry"
           />
-          <Select value={category} onChange={(e) => setCategory(e.target.value as VehicleFilters["category"])}>
-            <option value="All">Category: All</option>
+          <Select
+            label="Category"
+            value={category}
+            onChange={(e) => setCategory(e.target.value as VehicleFilters["category"])}
+          >
+            <option value="All">All Categories</option>
             {VEHICLE_CATEGORIES.map((c) => (
               <option key={c} value={c}>
                 {c}
@@ -273,6 +280,7 @@ export function InventoryPage() {
                 onDelete={setDeletingVehicle}
                 onPurchase={handlePurchase}
                 onRestock={handleRestock}
+                onInspect={setInspectingVehicle}
                 isPurchasing={purchasingId === vehicle.id}
                 canManage={isAdmin}
               />
@@ -283,6 +291,15 @@ export function InventoryPage() {
           </p>
         </>
       )}
+
+      <VehicleDetailsDrawer
+        vehicle={inspectingVehicle}
+        isOpen={Boolean(inspectingVehicle)}
+        onClose={() => setInspectingVehicle(null)}
+        onPurchase={handlePurchase}
+        onRestock={handleRestock}
+        isPurchasing={Boolean(inspectingVehicle && purchasingId === inspectingVehicle.id)}
+      />
 
       <VehicleFormModal
         isOpen={isFormOpen}
