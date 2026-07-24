@@ -508,7 +508,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "Manual",
     mileage: 22,
-    image: "https://images.unsplash.com/photo-1562911791-c1be016fe2a8?auto=format&fit=crop&w=1200&q=80",
+    image: "https://di-uploads-pod11.dealerinspire.com/germaintoyotaofcolumbus/uploads/2025/07/Toyota-GR-Supra-Exterior.webp",
     description: "Dynamic handling and raw power in an incredibly sleek and stunning coupe."
   }
 ];
