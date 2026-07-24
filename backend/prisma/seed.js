@@ -212,7 +212,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "Automatic",
     mileage: 0,
-    image: "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3710044233161212643",
+    image: "https://share.google/sENdWr012WrYZXtZo",
     description: "Full-size premium SUV built to carry the whole family in uncompromising comfort."
   },
 
@@ -296,7 +296,7 @@ const vehicles = [
     fuelType: "Electric",
     transmission: "Single-Speed Direct Drive",
     mileage: 20,
-    image: "https://images.unsplash.com/photo-1619767886558-efdc259cde1a?auto=format&fit=crop&w=1200&q=80",
+    image: "https://share.google/IyLsYty787pyX6Y57",
     description: "Tesla's highly anticipated new Model Y with upgraded suspension and track capabilities."
   },
   {
