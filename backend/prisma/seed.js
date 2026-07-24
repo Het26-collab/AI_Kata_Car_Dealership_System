@@ -18,7 +18,7 @@ const vehicles = [
     fuelType: "Hybrid",
     transmission: "eCVT",
     mileage: 0,
-    image: "https://images.unsplash.com/photo-1590362891991-f776e747a588?auto=format&fit=crop&w=1200&q=80",
+    image: "https://automobiles.honda.com/-/media/Honda-Automobiles/Vehicles/2026/accord-sedan/Car-and-Diver-10Best-Cars-award-banner/2026-honda-accord-sport-hybrid-platinum-white-pearl-S.jpg?sc_lang=en",
     description: "The premium midsize sedan with advanced hybrid efficiency and elegant styling."
   },
   {
@@ -34,7 +34,7 @@ const vehicles = [
     fuelType: "Electric",
     transmission: "Single-Speed Direct Drive",
     mileage: 15,
-    image: "https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&w=1200&q=80",
+    image: "https://i.redd.it/solid-black-2024-model-3-performance-with-full-ppf-and-tint-v0-tik8nctw9rhe1.jpg?width=4032&format=pjpg&auto=webp&s=04d04d71ce71861275969d55236820a61ae0663f",
     description: "The definitive electric sedan offering long range and blistering performance."
   },
   {
@@ -50,7 +50,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "CVT",
     mileage: 5,
-    image: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=1200&q=80",
+    image: "https://d1hv7ee95zft1i.cloudfront.net/custom/blog-post-photo/gallery/honda-civic-rs-turbo-rallye-red-5e44cb9296e00.jpg",
     description: "Sporty, dynamic, and reliable compact sedan for the modern driver."
   },
   {
@@ -66,7 +66,7 @@ const vehicles = [
     fuelType: "Hybrid",
     transmission: "eCVT",
     mileage: 0,
-    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+    image: "https://cdn-img.vincue.net/image/opt-dealerid1197-photoid1452176098-olid424998-overlaymodetopbottom--2BN2I-ltid3/1452176098.jpg",
     description: "The 2025 redesign brings striking looks and standard hybrid power to the iconic Camry."
   },
   {
