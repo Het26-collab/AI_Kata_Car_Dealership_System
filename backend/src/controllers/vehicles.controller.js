@@ -106,3 +106,22 @@ export async function stats(req, res, next) {
     next(error);
   }
 }
+
+export async function generateQuote(req, res, next) {
+  try {
+    const vehicle = await vehicleService.getVehicle(req.params.id);
+    if (!vehicle) return res.status(404).json({ error: "Vehicle not found." });
+
+    const { generatePdfQuote } = await import("../services/pdfQuote.service.js");
+    const pdfBuffer = await generatePdfQuote(vehicle, req.body || {});
+
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader(
+      "Content-Disposition",
+      `attachment; filename="quote-${vehicle.make}-${vehicle.model}.pdf"`
+    );
+    res.status(200).send(pdfBuffer);
+  } catch (error) {
+    next(error);
+  }
+}

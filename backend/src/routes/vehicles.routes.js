@@ -14,6 +14,7 @@ router.get("/stats", requireAuth, VehiclesController.stats);
 router.get("/search", requireAuth, VehiclesController.searchVehicles);
 router.get("/", requireAuth, VehiclesController.list);
 router.get("/:id", requireAuth, VehiclesController.getOne);
+router.post("/:id/quote", requireAuth, VehiclesController.generateQuote);
 router.post("/:id/purchase", requireAuth, VehiclesController.purchaseVehicle);
 router.post("/:id/restock", requireAuth, requireAdmin, validate(restockSchema), VehiclesController.restockVehicle);
 router.post("/", requireAuth, validate(createVehicleSchema), VehiclesController.createVehicle);
