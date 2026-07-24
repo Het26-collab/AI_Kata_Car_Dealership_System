@@ -101,8 +101,8 @@ export function AnalyticsPage() {
                 type="button"
                 onClick={() => setSelectedTimeframe(tf)}
                 className={`rounded-md px-sm py-xs text-label-sm font-medium transition-all ${selectedTimeframe === tf
-                    ? "bg-primary text-on-primary shadow-sm"
-                    : "text-on-surface-variant hover:text-on-surface"
+                  ? "bg-primary text-on-primary shadow-sm"
+                  : "text-on-surface-variant hover:text-on-surface"
                   }`}
               >
                 {tf}

@@ -152,9 +152,8 @@ export function DashboardPage() {
                     key={tf}
                     type="button"
                     onClick={() => handleSelectTimeframe(tf)}
-                    className={`w-full px-md py-sm text-left text-body-md transition-colors hover:bg-surface-container-low ${
-                      selectedTimeframe === tf ? "font-semibold text-primary" : "text-on-surface"
-                    }`}
+                    className={`w-full px-md py-sm text-left text-body-md transition-colors hover:bg-surface-container-low ${selectedTimeframe === tf ? "font-semibold text-primary" : "text-on-surface"
+                      }`}
                   >
                     {tf}
                   </button>
