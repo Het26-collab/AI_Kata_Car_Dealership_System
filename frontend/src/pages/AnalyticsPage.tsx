@@ -63,8 +63,7 @@ export function AnalyticsPage() {
     if (!stats?.inventoryMix) return [];
     return stats.inventoryMix.map((item) => ({
       ...item,
-      count: Math.max(1, Math.round(item.count * tfConfig.scale)),
-      value: Math.round(item.value * tfConfig.scale),
+      units: Math.max(1, Math.round((item.units ?? 1) * tfConfig.scale)),
     }));
   }, [stats?.inventoryMix, tfConfig.scale]);
 
@@ -177,7 +176,7 @@ export function AnalyticsPage() {
               icon="report_problem"
               label="Low Stock Risk"
               value={formatNumber(lowStockCount)}
-              tone="danger"
+              tone="warning"
               trailing={<span className="text-label-md text-error font-semibold">Requires restock</span>}
             />
           </div>

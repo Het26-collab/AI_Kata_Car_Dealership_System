@@ -11,7 +11,7 @@ import { useToast } from "../hooks/useToast";
 const STATUSES = ["In Transit", "In Stock", "Reserved"];
 
 export function PipelinePage() {
-  const { vehicles, isLoading, updateVehicle } = useVehicles({ sort: "newest", limit: 100 });
+  const { vehicles, isLoading, updateVehicle } = useVehicles({ sort: "newest" });
   const [items, setItems] = useState<Record<string, Vehicle[]>>({
     "In Transit": [],
     "In Stock": [],

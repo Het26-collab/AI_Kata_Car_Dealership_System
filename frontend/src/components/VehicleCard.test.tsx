@@ -15,6 +15,11 @@ const sampleVehicle = {
   quantity: 2,
   status: "In Stock" as const,
   image: "https://example.com/image.jpg",
+  mileage: 0,
+  color: "White",
+  fuelType: "Gasoline",
+  transmission: "Automatic",
+  description: "Test vehicle",
   createdAt: "2024-01-01",
   updatedAt: "2024-01-01",
 };

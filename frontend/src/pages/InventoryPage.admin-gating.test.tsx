@@ -49,6 +49,11 @@ function vehicleFixture(): Vehicle {
     quantity: 2,
     status: "In Stock",
     image: "https://example.com/car.jpg",
+    mileage: 0,
+    color: "White",
+    fuelType: "Gasoline",
+    transmission: "Automatic",
+    description: "Test",
     createdAt: new Date().toISOString(),
   };
 }

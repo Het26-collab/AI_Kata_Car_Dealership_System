@@ -81,8 +81,7 @@ export function DashboardPage() {
     if (!stats?.inventoryMix) return [];
     return stats.inventoryMix.map((item) => ({
       ...item,
-      count: Math.max(1, Math.round(item.count * Math.min(1.0, tfConfig.scale))),
-      value: Math.round(item.value * tfConfig.scale),
+      units: Math.max(1, Math.round((item.units ?? 1) * Math.min(1.0, tfConfig.scale))),
     }));
   }, [stats?.inventoryMix, tfConfig.scale]);
 

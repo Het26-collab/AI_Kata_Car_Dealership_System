@@ -1,7 +1,7 @@
 import { Modal } from "./Modal";
 import { Button } from "./Button";
 import { formatCurrency, formatNumber } from "../utils/format";
-import type { FleetStats } from "../types/stats";
+import type { FleetStats, InventoryMixEntry } from "../types/vehicle";
 import type { Vehicle } from "../types/vehicle";
 import { exportVehiclesToCsv } from "../utils/export";
 
@@ -18,6 +18,8 @@ export function DetailedReportModal({ isOpen, onClose, stats, vehicles }: Detail
   function handleExportCategoryReport() {
     exportVehiclesToCsv(vehicles, "detailed-fleet-report.csv");
   }
+
+  const totalUnits = stats.inventoryMix.reduce((sum, item) => sum + item.units, 0);
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} title="Detailed Inventory Analysis Report" size="lg">
@@ -50,23 +52,24 @@ export function DetailedReportModal({ isOpen, onClose, stats, vehicles }: Detail
               <thead className="bg-surface-container-low text-label-sm uppercase tracking-wider text-on-surface-variant">
                 <tr>
                   <th className="px-md py-sm">Category</th>
-                  <th className="px-md py-sm">Models</th>
+                  <th className="px-md py-sm">Units</th>
                   <th className="px-md py-sm">% of Mix</th>
                   <th className="px-md py-sm">Avg Price</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-outline-variant/40">
-                {stats.inventoryMix.map((item) => {
+                {stats.inventoryMix.map((item: InventoryMixEntry) => {
                   const categoryVehicles = vehicles.filter((v) => v.category.toLowerCase() === item.category.toLowerCase());
                   const avgPrice = categoryVehicles.length
                     ? Math.round(categoryVehicles.reduce((sum, v) => sum + v.price, 0) / categoryVehicles.length)
                     : 0;
+                  const pct = totalUnits > 0 ? Math.round((item.units / totalUnits) * 100) : 0;
 
                   return (
                     <tr key={item.category} className="hover:bg-surface-container-lowest transition-colors">
                       <td className="px-md py-sm font-medium text-on-surface">{item.category}</td>
-                      <td className="px-md py-sm text-on-surface-variant">{item.count}</td>
-                      <td className="px-md py-sm text-on-surface-variant">{item.percentage}%</td>
+                      <td className="px-md py-sm text-on-surface-variant">{item.units}</td>
+                      <td className="px-md py-sm text-on-surface-variant">{pct}%</td>
                       <td className="px-md py-sm font-medium text-on-surface">{formatCurrency(avgPrice)}</td>
                     </tr>
                   );
