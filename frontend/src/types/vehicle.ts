@@ -47,6 +47,7 @@ export interface VehicleFilters {
 export interface InventoryMixEntry {
   category: VehicleCategory;
   units: number;
+  avgPrice?: number;
 }
 
 export interface FleetStats {

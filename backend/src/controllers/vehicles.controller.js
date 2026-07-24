@@ -70,7 +70,7 @@ export async function deleteVehicle(req, res, next) {
 
 export async function purchaseVehicle(req, res, next) {
   try {
-    const result = await vehicleService.purchaseVehicle(req.params.id);
+    const result = await vehicleService.purchaseVehicle(req.params.id, req.user);
     if (result.error) {
       return res.status(result.status).json({ error: result.error });
     }
@@ -79,6 +79,15 @@ export async function purchaseVehicle(req, res, next) {
     if (error instanceof Prisma.PrismaClientKnownRequestError && error.code === "P2025") {
       return res.status(404).json({ error: "Vehicle not found." });
     }
+    next(error);
+  }
+}
+
+export async function listPurchases(req, res, next) {
+  try {
+    const purchases = await vehicleService.getPurchases(req.user);
+    res.json({ data: purchases });
+  } catch (error) {
     next(error);
   }
 }

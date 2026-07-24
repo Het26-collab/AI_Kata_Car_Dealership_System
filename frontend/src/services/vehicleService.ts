@@ -44,6 +44,9 @@ export const vehicleService = {
 
   stats: () => apiClient.get<ApiItemResponse<FleetStats>>("/vehicles/stats"),
 
+  getPurchases: () =>
+    apiClient.get<ApiItemResponse<Array<{ id: string; userId: string; userEmail: string; userName: string; vehicleId: string; make: string; model: string; price: number; purchasedAt: string }>>>("/vehicles/purchases"),
+
   downloadQuote: async (id: string, payload: { downPayment: number; termMonths: number; creditTier: string; tradeInValue: number }) => {
     const token = localStorage.getItem("driveflow_token");
     const response = await fetch(`/api/vehicles/${id}/quote`, {

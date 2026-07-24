@@ -7,11 +7,15 @@ import type { Vehicle } from "../types/vehicle";
 import { SortableVehicleCard } from "../components/pipeline/SortableVehicleCard";
 import { PipelineColumn } from "../components/pipeline/PipelineColumn";
 import { useToast } from "../hooks/useToast";
+import { useAuth } from "../hooks/useAuth";
 
 const STATUSES = ["In Transit", "In Stock", "Reserved"];
 
 export function PipelinePage() {
   const { vehicles, isLoading, updateVehicle } = useVehicles({ sort: "newest" });
+  const { user } = useAuth();
+  const isAdmin = user?.role === "admin";
+
   const [items, setItems] = useState<Record<string, Vehicle[]>>({
     "In Transit": [],
     "In Stock": [],
@@ -35,10 +39,19 @@ export function PipelinePage() {
   );
 
   function handleDragStart(event: any) {
+    if (!isAdmin) {
+      showToast({
+        variant: "warning",
+        title: "Access Restricted",
+        description: "Pipeline status updates require Administrator privileges.",
+      });
+      return;
+    }
     setActiveId(event.active.id);
   }
 
   function handleDragOver(event: any) {
+    if (!isAdmin) return;
     const { active, over } = event;
     if (!over) return;
     
@@ -73,6 +86,7 @@ export function PipelinePage() {
   async function handleDragEnd(event: any) {
     const { active, over } = event;
     setActiveId(null);
+    if (!isAdmin) return;
     
     if (!over) return;
     
@@ -136,6 +150,15 @@ export function PipelinePage() {
         <h1 className="text-headline-md font-bold text-on-surface">Inventory Pipeline</h1>
         <p className="text-body-md text-on-surface-variant">Drag and drop vehicles to update their status instantly.</p>
       </div>
+
+      {!isAdmin && (
+        <div className="mb-md flex items-center gap-sm rounded-lg border border-amber-500/30 bg-amber-500/10 p-md text-amber-800 dark:text-amber-200">
+          <span className="material-symbols-outlined text-[20px]">info</span>
+          <span className="text-body-md font-medium">
+            Viewing Mode: Status drag-and-drop workflow updates are restricted to Dealership Administrators.
+          </span>
+        </div>
+      )}
 
       <DndContext
         sensors={sensors}

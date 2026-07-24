@@ -11,7 +11,7 @@ function sanitizeUser(user) {
   return {
     id: user.id,
     email: user.email,
-    name: user.name || "Fleet Manager",
+    name: user.name || (user.role === "admin" ? "Fleet Manager" : "Valued Client"),
     role: user.role,
     dealership: user.dealership || "Global Motors",
     avatar: user.avatar || "",
@@ -49,11 +49,13 @@ export function validateLogin(body) {
 
 export async function registerUser(body) {
   const email = String(body.email).trim().toLowerCase();
+  const name = body.name ? String(body.name).trim() : "Valued Client";
   const passwordHash = await bcrypt.hash(String(body.password), 10);
 
   try {
     const user = await userRepository.create({
       email,
+      name,
       passwordHash,
       role: "user",
     });

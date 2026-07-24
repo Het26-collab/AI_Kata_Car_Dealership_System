@@ -51,11 +51,15 @@ export function Topbar({ onSearch, onMenuClick }: TopbarProps) {
         </button>
         <div className="flex items-center gap-sm">
           <div className="hidden text-right sm:block">
-            <p className="text-body-md font-medium leading-tight text-on-surface">{user?.name ?? "Fleet Manager"}</p>
-            <p className="text-label-md leading-tight text-on-surface-variant">{user?.role ?? "Admin"}</p>
+            <p className="text-body-md font-medium leading-tight text-on-surface">
+              {user?.name || (user?.role === "admin" ? "Fleet Manager" : "Valued Client")}
+            </p>
+            <p className="text-label-md leading-tight text-on-surface-variant">
+              {user?.role === "admin" ? "Administrator" : "Client / Buyer"}
+            </p>
           </div>
           <div className="flex h-9 w-9 items-center justify-center rounded-full bg-primary-container text-label-md font-semibold text-on-primary-container">
-            {initials(user?.name ?? "Fleet Manager")}
+            {initials(user?.name || (user?.role === "admin" ? "Fleet Manager" : "Valued Client"))}
           </div>
         </div>
       </div>

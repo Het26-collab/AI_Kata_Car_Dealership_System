@@ -150,7 +150,7 @@ export async function createVehicle(body) {
 }
 
 export async function listVehicles(filters = {}) {
-  const limit = filters.limit !== undefined && !isNaN(Number(filters.limit)) ? Math.max(1, Number(filters.limit)) : 100;
+  const limit = filters.limit !== undefined && !isNaN(Number(filters.limit)) ? Math.max(1, Number(filters.limit)) : 20;
   const offset = filters.offset !== undefined && !isNaN(Number(filters.offset)) ? Math.max(0, Number(filters.offset)) : 0;
 
   const normalizedFilters = {
@@ -170,7 +170,7 @@ export async function listVehicles(filters = {}) {
 }
 
 export async function searchVehicles(filters = {}) {
-  const limit = filters.limit !== undefined && !isNaN(Number(filters.limit)) ? Math.max(1, Number(filters.limit)) : 100;
+  const limit = filters.limit !== undefined && !isNaN(Number(filters.limit)) ? Math.max(1, Number(filters.limit)) : 20;
   const offset = filters.offset !== undefined && !isNaN(Number(filters.offset)) ? Math.max(0, Number(filters.offset)) : 0;
 
   const normalizedFilters = {
@@ -204,7 +204,9 @@ export async function deleteVehicle(id) {
   return vehicleRepository.remove(id);
 }
 
-export async function purchaseVehicle(id) {
+import { prisma } from "../lib/prisma.js";
+
+export async function purchaseVehicle(id, user = null) {
   const vehicle = await vehicleRepository.findById(id);
   if (!vehicle) {
     return { status: 404, error: "Vehicle not found." };
@@ -215,7 +217,33 @@ export async function purchaseVehicle(id) {
   }
 
   const updatedVehicle = await vehicleRepository.update(id, { quantity: vehicle.quantity - 1 });
+
+  try {
+    await prisma.purchase.create({
+      data: {
+        userId: user?.id || "anonymous",
+        userEmail: user?.email || "guest@driveflow.com",
+        userName: user?.name || "Customer",
+        vehicleId: vehicle.id,
+        make: vehicle.make,
+        model: vehicle.model,
+        price: vehicle.price,
+      },
+    });
+  } catch (err) {
+    // Log purchase record error without failing the purchase action
+    console.error("Failed to record purchase transaction:", err);
+  }
+
   return { status: 200, data: enrichVehicle(updatedVehicle) };
+}
+
+export async function getPurchases(user = null) {
+  const where = user?.role === "admin" ? {} : { userId: user?.id || "" };
+  return prisma.purchase.findMany({
+    where,
+    orderBy: { purchasedAt: "desc" },
+  });
 }
 
 export async function restockVehicle(id, body = {}) {
@@ -242,12 +270,19 @@ export async function getStats() {
   const sold = enrichedVehicles.filter((v) => v.status === "Sold").reduce((sum, v) => sum + v.quantity, 0);
   const lowStock = enrichedVehicles.filter((v) => v.quantity > 0 && v.quantity <= 2).length;
 
-  const inventoryMix = CATEGORIES.map((category) => ({
-    category,
-    units: enrichedVehicles
-      .filter((v) => v.category === category)
-      .reduce((sum, v) => sum + v.quantity, 0),
-  })).filter((entry) => entry.units > 0);
+  const inventoryMix = CATEGORIES.map((category) => {
+    const categoryVehicles = enrichedVehicles.filter((v) => v.category === category);
+    const units = categoryVehicles.reduce((sum, v) => sum + v.quantity, 0);
+    const avgPrice = categoryVehicles.length
+      ? Math.round(categoryVehicles.reduce((sum, v) => sum + v.price, 0) / categoryVehicles.length)
+      : 0;
+
+    return {
+      category,
+      units,
+      avgPrice,
+    };
+  }).filter((entry) => entry.units > 0);
 
   const totalValue = enrichedVehicles.reduce((sum, v) => sum + v.price * v.quantity, 0);
 

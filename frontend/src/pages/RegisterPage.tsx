@@ -37,6 +37,7 @@ function mapBackendErrors(error: ApiError): FormErrors {
 
 export function RegisterPage() {
   const navigate = useNavigate();
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -67,7 +68,7 @@ export function RegisterPage() {
     setErrors({});
     setIsLoading(true);
     try {
-      await authService.register({ email, password });
+      await authService.register({ email, password, name: name.trim() || undefined });
       navigate("/login", { replace: true, state: { registered: true, email } });
     } catch (err) {
       if (err instanceof ApiError) {
@@ -93,6 +94,16 @@ export function RegisterPage() {
       <p className="mt-xs text-body-md text-on-surface-variant">Register to access fleet inventory workflows.</p>
 
       <form onSubmit={handleSubmit} className="mt-lg flex flex-col gap-md" noValidate>
+        <Input
+          label="Full Name"
+          type="text"
+          name="name"
+          autoComplete="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="e.g. Sarah Jenkins"
+        />
+
         <Input
           label="Email Address"
           type="email"

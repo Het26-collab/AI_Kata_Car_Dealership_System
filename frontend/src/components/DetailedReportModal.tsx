@@ -60,9 +60,10 @@ export function DetailedReportModal({ isOpen, onClose, stats, vehicles }: Detail
               <tbody className="divide-y divide-outline-variant/40">
                 {stats.inventoryMix.map((item: InventoryMixEntry) => {
                   const categoryVehicles = vehicles.filter((v) => v.category.toLowerCase() === item.category.toLowerCase());
-                  const avgPrice = categoryVehicles.length
+                  const calculatedAvg = categoryVehicles.length
                     ? Math.round(categoryVehicles.reduce((sum, v) => sum + v.price, 0) / categoryVehicles.length)
                     : 0;
+                  const avgPrice = item.avgPrice ?? calculatedAvg;
                   const pct = totalUnits > 0 ? Math.round((item.units / totalUnits) * 100) : 0;
 
                   return (

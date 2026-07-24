@@ -25,17 +25,31 @@ if (!fs.existsSync(dbPath)) {
       env: process.env,
     },
   );
+} else {
+  // Push schema to make sure any new models are created in worker dbs
+  try {
+    execSync(
+      `npx prisma db push --skip-generate --schema "${prismaSchemaPath}"`,
+      {
+        cwd: backendRoot,
+        stdio: "pipe",
+        env: process.env,
+      },
+    );
+  } catch (err) {}
 }
 
 const { prisma } = await import("../src/lib/prisma.js");
 
 beforeEach(async () => {
+  await prisma.purchase.deleteMany();
   await prisma.vehicle.deleteMany();
   await prisma.user.deleteMany();
 });
 
 afterAll(async () => {
   if (prisma) {
+    await prisma.purchase.deleteMany();
     await prisma.vehicle.deleteMany();
     await prisma.user.deleteMany();
   }
