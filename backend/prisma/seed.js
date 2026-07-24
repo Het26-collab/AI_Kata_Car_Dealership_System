@@ -82,7 +82,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "Automatic",
     mileage: 120,
-    image: "https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=80",
+    image: "https://assets.cai-media-management.com/resize/1024x1024/common-vehicle-media/1cc8ee80-6b6b-481e-8cbd-69056dd915fb.jpg",
     description: "Proven reliability and sharp styling in this legendary mid-size sedan."
   },
   {
@@ -196,7 +196,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "Automatic",
     mileage: 50,
-    image: "https://images.unsplash.com/photo-1520050206274-a1ae44613e6d?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.cdn.autocar.co.uk/sites/autocar.co.uk/files/styles/gallery_slide/public/01-mercedes-g500-g-wagen-2024-review-lead-driving-front.jpg?itok=o7z6UwrT",
     description: "Iconic ultra-luxury SUV with unparalleled off-road capability and presence."
   },
   {
@@ -212,7 +212,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "Automatic",
     mileage: 0,
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+    image: "https://lookaside.instagram.com/seo/google_widget/crawler/?media_id=3710044233161212643",
     description: "Full-size premium SUV built to carry the whole family in uncompromising comfort."
   },
 
@@ -230,7 +230,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "Automatic",
     mileage: 12,
-    image: "https://images.unsplash.com/photo-1559416523-140ddc3d238c?auto=format&fit=crop&w=1200&q=80",
+    image: "https://hips.hearstapps.com/hmg-prod/images/2024-ford-f-150-platinum-01-6500a740860e5.jpg?crop=0.522xw:1.00xh;0.151xw,0&resize=1200:*",
     description: "The undisputed king of the road, featuring immense towing capability and tough luxury."
   },
   {
@@ -246,7 +246,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "Automatic",
     mileage: 22,
-    image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=1200&q=80",
+    image: "https://media.ed.edmunds-media.com/chevrolet/silverado-1500/2025/oem/2025_chevrolet_silverado-1500_crew-cab-pickup_high-country_fq_oem_1_1280.jpg",
     description: "New 2025 highly capable full-size pickup equipped for the toughest jobs."
   },
   {
