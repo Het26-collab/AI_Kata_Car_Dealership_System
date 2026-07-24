@@ -426,7 +426,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "Automatic",
     mileage: 50,
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    image: "https://www.marshallgoldmanbh.com/imagetag/4334/6/l/Used-2025-Bentley-Continental-GT-Speed-First-Edition-1746822140.jpg",
     description: "The pinnacle of grand touring luxury featuring exhilarating Speed performance."
   },
 
