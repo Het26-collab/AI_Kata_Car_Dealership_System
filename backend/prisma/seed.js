@@ -492,7 +492,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "Automatic",
     mileage: 10,
-    image: "https://images.unsplash.com/photo-1506469717960-433ce15416bf?auto=format&fit=crop&w=1200&q=80",
+    image: "https://mediaassets.pca.org/pages/pca/images/content/01-2025-Porsche-911-Carrera-S.jpg",
     description: "The quintessential sports car continuing decades of rear-engine heritage."
   },
   {
