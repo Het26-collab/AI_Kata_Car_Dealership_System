@@ -394,7 +394,7 @@ const vehicles = [
     fuelType: "Hybrid",
     transmission: "Automatic",
     mileage: 35,
-    image: "https://images.unsplash.com/photo-1563720223058-7e3e7f9e8a8b?auto=format&fit=crop&w=1200&q=80",
+    image: "https://di-uploads-pod3.dealerinspire.com/fletcherjonesmbnewport/uploads/2024/07/Newport-S-CLASS-SEDAN-1024x683.png",
     description: "The global benchmark for automotive luxury, comfort, and advanced technology."
   },
   {
@@ -410,7 +410,7 @@ const vehicles = [
     fuelType: "Hybrid",
     transmission: "CVT",
     mileage: 0,
-    image: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=1200&q=80",
+    image: "https://static0.carbuzzimages.com/wordpress/wp-content/uploads/2025/02/2025-lexus-ls-exterior-5.jpg?q=49&fit=contain&w=750&h=422&dpr=2",
     description: "Unparalleled Japanese craftsmanship and serene hybrid performance."
   },
   {
