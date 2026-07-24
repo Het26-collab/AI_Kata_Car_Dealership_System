@@ -519,7 +519,7 @@ async function main() {
   await prisma.vehicle.deleteMany();
   await prisma.user.deleteMany();
 
-  console.log('👤 Creating admin user...');
+  console.log('👤 Creating admin & standard users...');
   const salt = await bcrypt.genSalt(10);
   const passwordHash = await bcrypt.hash('demo1234', salt);
   
@@ -529,6 +529,16 @@ async function main() {
       passwordHash,
       name: 'Victoria Chen',
       role: 'admin',
+      dealership: 'Global Motors',
+    }
+  });
+
+  await prisma.user.create({
+    data: {
+      email: 'user@globalmotors.com',
+      passwordHash,
+      name: 'Alex Vance',
+      role: 'user',
       dealership: 'Global Motors',
     }
   });
