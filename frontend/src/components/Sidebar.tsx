@@ -5,6 +5,7 @@ const NAV_ITEMS = [
   { to: "/dashboard", label: "Dashboard", icon: "dashboard" },
   { to: "/inventory", label: "Inventory", icon: "directions_car" },
   { to: "/analytics", label: "Analytics", icon: "bar_chart" },
+  { to: "/pipeline", label: "Pipeline", icon: "view_kanban" },
   { to: "/settings", label: "Settings", icon: "settings" },
 ];
 

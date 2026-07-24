@@ -6,6 +6,7 @@ import { InventoryPage } from "../pages/InventoryPage";
 import { AnalyticsPage } from "../pages/AnalyticsPage";
 import { SettingsPage } from "../pages/SettingsPage";
 import { SupportPage } from "../pages/SupportPage";
+import { PipelinePage } from "../pages/PipelinePage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { ProtectedRoute } from "./ProtectedRoute";
 
@@ -36,6 +37,14 @@ export function AppRoutes() {
         element={
           <ProtectedRoute>
             <AnalyticsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/pipeline"
+        element={
+          <ProtectedRoute>
+            <PipelinePage />
           </ProtectedRoute>
         }
       />

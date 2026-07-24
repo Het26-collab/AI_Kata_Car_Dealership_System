@@ -77,6 +77,7 @@ export function useVehicles(filters: VehicleFilters, options: UseVehiclesOptions
 
   const updateVehicle = useCallback(async (id: string, draft: Partial<VehicleDraft>) => {
     const res = await vehicleService.update(id, draft);
+    setVehicles((prev) => prev.map((vehicle) => (vehicle.id === id ? res.data : vehicle)));
     setVersion((v) => v + 1);
     return res.data;
   }, []);
