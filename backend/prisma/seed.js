@@ -132,7 +132,7 @@ const vehicles = [
     fuelType: "Hybrid",
     transmission: "eCVT",
     mileage: 10,
-    image: "https://images.unsplash.com/photo-1628277613967-6abca504d0ac?auto=format&fit=crop&w=1200&q=80",
+    image: "https://autoimage.capitalone.com/dealer/2025-Toyota-RAV4-XLE-2T3W1RFV4SC316824-vauto_2T3W1RFV4SC316824_MP16521-6342c0954382829d41ccf8906558e68eff2549ac240aa5b2eaa0beb106c970fd.jpg?width=640&height=480",
     description: "The best-selling crossover SUV featuring excellent economy and rugged styling."
   },
   {
@@ -148,7 +148,7 @@ const vehicles = [
     fuelType: "Hybrid",
     transmission: "eCVT",
     mileage: 0,
-    image: "https://images.unsplash.com/photo-1609521263047-f8f205293f24?auto=format&fit=crop&w=1200&q=80",
+    image: "https://us-west-2.graphassets.com/ALxjZdtQIQOudrzeO6hSgz/cmaikpfj4unue07mxkrlbsxy2",
     description: "Premium versatile SUV offering spacious interior and advanced safety systems."
   },
   {
@@ -164,7 +164,7 @@ const vehicles = [
     fuelType: "Hybrid",
     transmission: "Automatic",
     mileage: 25,
-    image: "https://images.unsplash.com/photo-1542362567-b07e54358753?auto=format&fit=crop&w=1200&q=80",
+    image: "https://cdn.max.auto/t_4x3/l_110640:693c88ba714a267d80b156ad/o_100/t_center_overlay/t_hres/110640/5UX23EU02S9Y00285/6a1e016b98a7f95b39829999.jpg",
     description: "Dynamic mid-size luxury SAV with confident xDrive and sporty aerodynamics."
   },
   {
@@ -180,7 +180,7 @@ const vehicles = [
     fuelType: "Hybrid",
     transmission: "Automatic",
     mileage: 12,
-    image: "https://images.unsplash.com/photo-1514316454349-750a7fd3da3a?auto=format&fit=crop&w=1200&q=80",
+    image: "https://media.production.jlrms.com/2024-04-03/image/ee5f300e-8dc9-49a5-bd86-cb429e80159d/RRS_25MY_STEALTH_040424_09.jpg?VersionId=NO7DQEhgwbc3rqUv02vglZyln7n7lx4B",
     description: "Incredible presence with the Stealth pack and dynamic on-road performance."
   },
   {
