@@ -5,6 +5,7 @@ import { StatusBadge } from "./StatusBadge";
 import { Button } from "./Button";
 import { DEFAULT_CAR_IMAGE, handleImageError } from "../utils/images";
 import { useAuth } from "../hooks/useAuth";
+import { FinancingQuotePanel } from "./FinancingQuotePanel";
 
 interface VehicleDetailsDrawerProps {
   vehicle: Vehicle | null;
@@ -121,30 +122,8 @@ export function VehicleDetailsDrawer({
             </div>
           </div>
 
-          {/* Financing Estimator */}
-          <div className="rounded-xl border border-outline-variant bg-surface-container-lowest p-md space-y-sm">
-            <div className="flex items-center justify-between">
-              <h4 className="text-title-md font-bold text-on-surface">Estimated Financing</h4>
-              <span className="text-title-md font-extrabold text-primary">${estimatedMonthly}/mo</span>
-            </div>
-            <p className="text-label-sm text-on-surface-variant">Est. 5.9% APR loan over {loanTerm} months</p>
-
-            <div className="space-y-xs pt-xs">
-              <div className="flex justify-between text-label-sm text-on-surface-variant">
-                <span>Down Payment</span>
-                <span className="font-semibold text-on-surface">${downPayment.toLocaleString()}</span>
-              </div>
-              <input
-                type="range"
-                min={0}
-                max={Math.min(vehicle.price, 20000)}
-                step={500}
-                value={downPayment}
-                onChange={(e) => setDownPayment(Number(e.target.value))}
-                className="w-full accent-primary"
-              />
-            </div>
-          </div>
+          {/* Financing Quote & Loan Estimator */}
+          <FinancingQuotePanel vehicle={vehicle} />
         </div>
 
         {/* Footer Actions */}

@@ -43,4 +43,28 @@ export const vehicleService = {
     apiClient.post<ApiItemResponse<Vehicle>>(`/vehicles/${id}/restock`, quantity ? { quantity } : {}),
 
   stats: () => apiClient.get<ApiItemResponse<FleetStats>>("/vehicles/stats"),
+
+  downloadQuote: async (id: string, payload: { downPayment: number; termMonths: number; creditTier: string; tradeInValue: number }) => {
+    const token = localStorage.getItem("driveflow_token");
+    const response = await fetch(`/api/vehicles/${id}/quote`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+      },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) {
+      throw new Error("Failed to generate PDF quote.");
+    }
+    const blob = await response.blob();
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `quote-${id}.pdf`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    window.URL.revokeObjectURL(url);
+  },
 };
