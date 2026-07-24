@@ -262,7 +262,7 @@ const vehicles = [
     fuelType: "Gasoline",
     transmission: "Automatic",
     mileage: 0,
-    image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=1200&q=80",
+    image: "https://media.chromedata.com/MediaGallery/media/MjkzOTU4Xk1lZGlhIEdhbGxlcnk/g6p07OzHqVom0Du1llN-ti8dqPqDmmi7tFiAhpvjbRJ8ajc79j2yp18pF3AOKV2IoXEsEz1Age9fEQ_EsQdafICMHPIIKIDJiMTln1uBk7NUvxDWqNYd7AM1iZL9HOBpDnpGrxqGxdCrvGiyk3r-j0d0fhj4-x69_NkL90RuiWo3iD-mgfUXU1egYPTMq2n5/cc_2025RMT111976000_01_640_PRV.png",
     description: "Luxurious capability with authentic southwestern charm and premium leather."
   },
   {
@@ -278,7 +278,7 @@ const vehicles = [
     fuelType: "Hybrid",
     transmission: "Automatic",
     mileage: 15,
-    image: "https://images.unsplash.com/photo-1485291571150-772bcfc10da5?auto=format&fit=crop&w=1200&q=80",
+    image: "https://di-uploads-pod47.dealerinspire.com/valleyhitoyota/uploads/2025/09/2025-toyota-tacoma-ice-cap.webp",
     description: "The ultimate off-road adventure machine with legendary durability."
   },
 
@@ -312,7 +312,7 @@ const vehicles = [
     fuelType: "Electric",
     transmission: "Single-Speed Direct Drive",
     mileage: 0,
-    image: "https://images.unsplash.com/photo-1534398079-14dc62118357?auto=format&fit=crop&w=1200&q=80",
+    image: "https://unpluggedperformance.com/wp-content/uploads/2023/03/Deep-Blue-Metallic-Unplugged-Performance-Tesla-Model-S-Plaid-Image-4.jpg",
     description: "Incredible acceleration and premium grand touring capabilities."
   },
   {
@@ -328,7 +328,7 @@ const vehicles = [
     fuelType: "Electric",
     transmission: "Single-Speed Direct Drive",
     mileage: 30,
-    image: "https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=1200&q=80",
+    image: "https://media.drive.com.au/obj/tx_q:50,rs:auto:1920:1080:1/driveau/upload/cms/uploads/b8055bd6-a86f-52b4-b9a8-59702e250000",
     description: "Electrifying Mustang performance infused into a sleek, aggressive SUV."
   },
   {
@@ -344,7 +344,7 @@ const vehicles = [
     fuelType: "Electric",
     transmission: "Single-Speed Direct Drive",
     mileage: 18,
-    image: "https://images.unsplash.com/photo-1506015391300-4802db00442e?auto=format&fit=crop&w=1200&q=80",
+    image: "https://media.drive.com.au/obj/tx_q:50,rs:auto:1920:1080:1/driveau/upload/cms/uploads/a695e67a-3da0-5880-98b0-6504a9e50000",
     description: "Award-winning retro-futuristic electric crossover with ultra-fast charging."
   },
   {
@@ -360,7 +360,7 @@ const vehicles = [
     fuelType: "Electric",
     transmission: "Single-Speed Direct Drive",
     mileage: 8,
-    image: "https://images.unsplash.com/photo-1550355220-43093b2a3df2?auto=format&fit=crop&w=1200&q=80",
+    image: "https://evsportline.com/cdn/shop/articles/ForestGreen-RivianR1S-RunningBoards-SatinPPF-12_75e3a808-951e-413e-be1b-f33dca954e5b_1280x.jpg?v=1760115462",
     description: "The ultimate electric adventure SUV built for extreme terrains."
   },
   {
@@ -376,7 +376,7 @@ const vehicles = [
     fuelType: "Electric",
     transmission: "Single-Speed Direct Drive",
     mileage: 12,
-    image: "https://images.unsplash.com/photo-1541443131876-44b03de101c5?auto=format&fit=crop&w=1200&q=80",
+    image: "https://images.axios.com/LLHVbTisdKBBqR9sQ3D970R5F40=/0x148:2560x1588/1920x1080/2021/01/19/1611072991424.jpg",
     description: "The world's first fully capable luxury electric adventure truck."
   },
 
