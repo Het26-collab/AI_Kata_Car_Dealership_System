@@ -5,6 +5,7 @@ const VARIANT_STYLES: Record<ToastVariant, { border: string; icon: string; iconC
   success: { border: "border-l-success", icon: "check_circle", iconColor: "text-success" },
   error: { border: "border-l-error", icon: "error", iconColor: "text-error" },
   info: { border: "border-l-primary", icon: "info", iconColor: "text-primary" },
+  warning: { border: "border-l-amber-500", icon: "warning", iconColor: "text-amber-500" },
 };
 
 export function ToastContainer() {

@@ -103,7 +103,12 @@ export function VehicleDetailsDrawer({
               </div>
               <div>
                 <p className="text-label-sm text-on-surface-variant uppercase">Powertrain</p>
-                <p className="text-body-md font-semibold text-on-surface">{vehicle.fuelType || "Gasoline"}</p>
+                <p className="text-body-md font-semibold text-on-surface">
+                  {vehicle.fuelType === "Electric" && "⚡ "}
+                  {vehicle.fuelType === "Hybrid" && "🍃 "}
+                  {(vehicle.fuelType === "Gasoline" || vehicle.fuelType === "Gas" || !vehicle.fuelType) && "🔥 "}
+                  {vehicle.fuelType || "Gasoline"}
+                </p>
               </div>
               <div>
                 <p className="text-label-sm text-on-surface-variant uppercase">Transmission</p>

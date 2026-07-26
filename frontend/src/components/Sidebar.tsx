@@ -16,7 +16,7 @@ interface SidebarProps {
 }
 
 export function Sidebar({ onAddVehicle, isOpen, onCloseMobile }: SidebarProps) {
-  const { logout, user } = useAuth();
+  const { logout } = useAuth();
 
   return (
     <>
@@ -32,21 +32,8 @@ export function Sidebar({ onAddVehicle, isOpen, onCloseMobile }: SidebarProps) {
           isOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
-        <div className="flex items-center gap-md px-sm py-md border-b border-outline-variant/50 pb-md mb-xs">
-          <div className="relative flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-sky-500 text-white shadow-md ring-1 ring-white/20">
-            <span className="material-symbols-outlined text-[22px]">directions_car</span>
-            <span className="absolute -top-1 -right-1 flex h-3 w-3">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 ring-2 ring-white"></span>
-            </span>
-          </div>
-          <div className="overflow-hidden">
-            <div className="flex items-center gap-xs">
-              <h2 className="text-title-md font-extrabold tracking-tight text-on-surface truncate">Global Motors</h2>
-              <span className="rounded bg-primary/10 px-xs py-[2px] text-[10px] font-bold text-primary uppercase tracking-wide">PRO</span>
-            </div>
-            <p className="text-label-sm font-medium text-on-surface-variant truncate">AutoFleet Pro &bull; Enterprise</p>
-          </div>
+        <div className="flex items-center justify-center px-xs py-md border-b border-outline-variant/50 pb-md mb-xs overflow-hidden">
+          <img src="/Logo_GM.png" alt="Global Motors Logo" className="h-32 w-auto max-w-[260px] object-contain scale-[1.75] transform transition-transform" />
         </div>
 
         <nav className="mt-lg flex flex-1 flex-col gap-xs overflow-y-auto">
@@ -56,14 +43,14 @@ export function Sidebar({ onAddVehicle, isOpen, onCloseMobile }: SidebarProps) {
               to={item.to}
               onClick={onCloseMobile}
               className={({ isActive }) =>
-                `flex items-center gap-md rounded-lg p-md text-label-md transition-all duration-200 ${
+                `flex items-center gap-md rounded-xl px-md py-md text-label-lg transition-all duration-200 ${
                   isActive
-                    ? "bg-secondary-container font-semibold text-on-secondary-container"
-                    : "text-on-secondary-container/70 hover:bg-surface-container-high"
+                    ? "bg-primary text-on-primary font-bold shadow-md shadow-primary/20"
+                    : "text-slate-700 dark:text-slate-200 font-semibold hover:bg-surface-container-high hover:text-primary"
                 }`
               }
             >
-              <span className="material-symbols-outlined">{item.icon}</span>
+              <span className="material-symbols-outlined text-[22px]">{item.icon}</span>
               <span>{item.label}</span>
             </NavLink>
           ))}
@@ -86,22 +73,22 @@ export function Sidebar({ onAddVehicle, isOpen, onCloseMobile }: SidebarProps) {
               to="/support"
               onClick={onCloseMobile}
               className={({ isActive }) =>
-                `flex items-center gap-md rounded-lg p-md text-label-md transition-all duration-200 ${
+                `flex items-center gap-md rounded-xl px-md py-md text-label-lg transition-all duration-200 ${
                   isActive
-                    ? "bg-secondary-container font-semibold text-on-secondary-container"
-                    : "text-on-secondary-container/70 hover:bg-surface-container-high"
+                    ? "bg-primary text-on-primary font-bold shadow-md shadow-primary/20"
+                    : "text-slate-700 dark:text-slate-200 font-semibold hover:bg-surface-container-high hover:text-primary"
                 }`
               }
             >
-              <span className="material-symbols-outlined">support_agent</span>
+              <span className="material-symbols-outlined text-[22px]">support_agent</span>
               Support
             </NavLink>
             <button
               type="button"
               onClick={logout}
-              className="flex items-center gap-md rounded-lg p-md text-left text-label-md text-error transition-all hover:bg-error-container/40"
+              className="flex items-center gap-md rounded-xl px-md py-md text-left text-label-lg font-semibold text-error transition-all hover:bg-error-container/40"
             >
-              <span className="material-symbols-outlined">logout</span>
+              <span className="material-symbols-outlined text-[22px]">logout</span>
               Sign Out
             </button>
           </div>

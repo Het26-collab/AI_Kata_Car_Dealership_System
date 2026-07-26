@@ -2,9 +2,11 @@ import { useEffect, useState, useMemo } from "react";
 import { Command } from "cmdk";
 import { useNavigate } from "react-router-dom";
 import { useVehicles } from "../hooks/useVehicles";
+import { useAuth } from "../hooks/useAuth";
 
 export function CommandPalette() {
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
   const { vehicles } = useVehicles({ sort: "newest" });
   const navigate = useNavigate();
 
@@ -82,6 +84,13 @@ export function CommandPalette() {
             >
               <span className="material-symbols-outlined text-[18px]">bar_chart</span>
               Fleet Analytics
+            </Command.Item>
+            <Command.Item
+              onSelect={() => handleSelect(() => navigate("/pipeline"))}
+              className="flex cursor-pointer items-center gap-sm rounded-lg px-md py-sm text-body-md text-on-surface transition-colors aria-selected:bg-surface-container-low aria-selected:text-primary"
+            >
+              <span className="material-symbols-outlined text-[18px]">view_kanban</span>
+              Inventory Pipeline
             </Command.Item>
           </Command.Group>
 

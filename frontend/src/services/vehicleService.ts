@@ -14,6 +14,7 @@ function buildQuery(filters: VehicleFilters = {}, options: { searchEndpoint?: bo
   if (!options.searchEndpoint && filters.status && filters.status !== "All") params.set("status", filters.status);
   if (filters.minPrice !== undefined) params.set("minPrice", String(filters.minPrice));
   if (filters.maxPrice !== undefined) params.set("maxPrice", String(filters.maxPrice));
+  if (filters.limit !== undefined) params.set("limit", String(filters.limit));
   if (!options.searchEndpoint && filters.sort) params.set("sort", filters.sort);
   const qs = params.toString();
   return qs ? `?${qs}` : "";

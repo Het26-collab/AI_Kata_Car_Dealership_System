@@ -29,13 +29,8 @@ export function LoginPage() {
 
   return (
     <AuthLayout>
-      <div className="flex items-center gap-sm">
-        <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary text-on-primary">
-          <span className="material-symbols-outlined">directions_car</span>
-        </div>
-        <h1 className="text-title-lg font-bold text-on-surface">
-          AutoFleet<span className="text-primary">Pro</span>
-        </h1>
+      <div className="flex items-center justify-center overflow-hidden py-md">
+        <img src="/Logo_GM.png" alt="Global Motors Logo" className="h-44 w-auto max-w-[340px] object-contain scale-[1.8] transform transition-transform drop-shadow-md" />
       </div>
 
       <h2 className="mt-2xl text-headline-lg-mobile text-on-surface">Welcome back</h2>

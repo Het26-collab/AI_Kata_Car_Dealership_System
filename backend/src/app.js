@@ -39,6 +39,18 @@ app.use(
 app.use(express.json({ limit: "1mb" }));
 app.use(express.urlencoded({ extended: true }));
 
+// ─── Welcome / Root route ───────────────────────────────────────────────────
+app.get("/", (req, res) => {
+  res.json({
+    message: "Welcome to the DriveFlow API. Please use /api/health to check service status, or connect via the frontend.",
+    endpoints: {
+      health: "/api/health",
+      auth: "/api/auth",
+      vehicles: "/api/vehicles"
+    }
+  });
+});
+
 // ─── Health check ───────────────────────────────────────────────────────────
 app.get("/api/health", (req, res) => {
   res.json({

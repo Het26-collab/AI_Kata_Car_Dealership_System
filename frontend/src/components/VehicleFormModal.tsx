@@ -35,6 +35,7 @@ const EMPTY_FORM: VehicleDraft = {
   fuelType: "Gasoline",
   transmission: "Automatic",
   description: "",
+  image: "",
 };
 
 export function VehicleFormModal({ isOpen, vehicle, onClose, onSubmit }: VehicleFormModalProps) {
@@ -62,6 +63,7 @@ export function VehicleFormModal({ isOpen, vehicle, onClose, onSubmit }: Vehicle
               fuelType: vehicle.fuelType || "Gasoline",
               transmission: vehicle.transmission || "Automatic",
               description: vehicle.description || "",
+              image: vehicle.image || "",
             }
           : EMPTY_FORM
       );
@@ -224,6 +226,53 @@ export function VehicleFormModal({ isOpen, vehicle, onClose, onSubmit }: Vehicle
             </option>
           ))}
         </Select>
+        <div className="sm:col-span-2 space-y-sm">
+          <div className="flex items-end gap-md">
+            <div className="flex-1">
+              <Input
+                label="Image URL"
+                value={form.image}
+                onChange={(e) => setForm((f) => ({ ...f, image: e.target.value }))}
+                placeholder="e.g. https://example.com/vehicle-image.jpg"
+              />
+            </div>
+            <div className="shrink-0 pb-[2px]">
+              <label className="flex h-[42px] cursor-pointer items-center justify-center gap-xs rounded-lg border border-outline-variant bg-surface-container-high px-md text-label-md font-semibold text-on-surface hover:bg-surface-container-highest transition-colors">
+                <span className="material-symbols-outlined text-[20px]">upload</span>
+                Upload File
+                <input
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onload = (event) => {
+                        if (event.target?.result) {
+                          setForm((f) => ({ ...f, image: event.target!.result as string }));
+                        }
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                />
+              </label>
+            </div>
+          </div>
+          {form.image && (
+            <div className="relative mt-xs h-24 w-40 overflow-hidden rounded-lg border border-outline-variant bg-surface-container-low shadow-sm group">
+              <img src={form.image} alt="Preview" className="h-full w-full object-cover" />
+              <button
+                type="button"
+                onClick={() => setForm((f) => ({ ...f, image: "" }))}
+                className="absolute right-1 top-1 flex h-6 w-6 items-center justify-center rounded-full bg-black/60 text-white opacity-0 group-hover:opacity-100 hover:bg-black transition-opacity"
+              >
+                <span className="material-symbols-outlined text-[16px]">close</span>
+              </button>
+            </div>
+          )}
+        </div>
         <div className="sm:col-span-2">
           <label className="mb-xs block text-label-md text-on-surface-variant">Description</label>
           <textarea

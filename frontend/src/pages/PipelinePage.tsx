@@ -12,7 +12,7 @@ import { useAuth } from "../hooks/useAuth";
 const STATUSES = ["In Transit", "In Stock", "Reserved"];
 
 export function PipelinePage() {
-  const { vehicles, isLoading, updateVehicle } = useVehicles({ sort: "newest" });
+  const { vehicles, isLoading, updateVehicle } = useVehicles({ limit: 100, sort: "newest" });
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
 
@@ -25,10 +25,11 @@ export function PipelinePage() {
   const { showToast } = useToast();
 
   useEffect(() => {
-    if (!vehicles || vehicles.length === 0) return;
+    if (!vehicles) return;
     const newItems: Record<string, Vehicle[]> = { "In Transit": [], "In Stock": [], "Reserved": [] };
     vehicles.forEach((v) => {
-      if (newItems[v.status]) newItems[v.status].push(v);
+      const statusKey = v.status && STATUSES.includes(v.status) ? v.status : "In Stock";
+      newItems[statusKey].push(v);
     });
     setItems(newItems);
   }, [vehicles]);

@@ -41,6 +41,7 @@ export interface VehicleFilters {
   status?: VehicleStatus | "All";
   minPrice?: number;
   maxPrice?: number;
+  limit?: number;
   sort?: "newest" | "oldest" | "price-asc" | "price-desc";
 }
 

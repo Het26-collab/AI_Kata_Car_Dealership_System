@@ -65,7 +65,8 @@ export function VehicleCard({
           <span className="inline-flex items-center rounded-full bg-black/60 px-sm py-xs text-[10px] font-medium uppercase tracking-wider text-white backdrop-blur-sm">
             {vehicle.fuelType === "Electric" && "⚡ "}
             {vehicle.fuelType === "Hybrid" && "🍃 "}
-            {vehicle.fuelType}
+            {(vehicle.fuelType === "Gasoline" || vehicle.fuelType === "Gas" || !vehicle.fuelType) && "🔥 "}
+            {vehicle.fuelType || "Gasoline"}
           </span>
         </div>
       </div>

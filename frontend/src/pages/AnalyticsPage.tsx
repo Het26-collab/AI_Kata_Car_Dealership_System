@@ -15,7 +15,7 @@ const TIMEFRAMES = ["All Time", "Q3 2026", "YTD 2026", "Last 30 Days"];
 
 export function AnalyticsPage() {
   const { stats, isLoading: statsLoading } = useFleetStats();
-  const { vehicles, isLoading: vehiclesLoading } = useVehicles({ sort: "newest" });
+  const { vehicles, isLoading: vehiclesLoading } = useVehicles({ limit: 100, sort: "newest" });
   const { showToast } = useToast();
   const [selectedTimeframe, setSelectedTimeframe] = useState("All Time");
 
@@ -53,9 +53,9 @@ export function AnalyticsPage() {
 
   // Fuel Type Breakdown scaled by active timeframe
   const fuelBreakdown = [
-    { type: "Gasoline", count: Math.round(vehicles.filter((v) => v.fuelType === "Gasoline").length * tfConfig.scale), color: "bg-blue-500" },
-    { type: "Hybrid", count: Math.round(vehicles.filter((v) => v.fuelType === "Hybrid").length * tfConfig.scale), color: "bg-emerald-500" },
-    { type: "Electric", count: Math.round(vehicles.filter((v) => v.fuelType === "Electric").length * tfConfig.scale), color: "bg-purple-500" },
+    { type: "🔥 Gasoline", count: Math.round(vehicles.filter((v) => v.fuelType === "Gasoline").length * tfConfig.scale), color: "bg-blue-500" },
+    { type: "🍃 Hybrid", count: Math.round(vehicles.filter((v) => v.fuelType === "Hybrid").length * tfConfig.scale), color: "bg-emerald-500" },
+    { type: "⚡ Electric", count: Math.round(vehicles.filter((v) => v.fuelType === "Electric").length * tfConfig.scale), color: "bg-purple-500" },
   ];
 
   // Dynamically sliced inventory mix chart data

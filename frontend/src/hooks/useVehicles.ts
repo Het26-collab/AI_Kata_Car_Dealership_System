@@ -64,6 +64,7 @@ export function useVehicles(filters: VehicleFilters, options: UseVehiclesOptions
     filters.status,
     filters.minPrice,
     filters.maxPrice,
+    filters.limit,
     filters.sort,
     options.useSearchEndpoint,
     version,

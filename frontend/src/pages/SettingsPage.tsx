@@ -27,7 +27,7 @@ export function SettingsPage() {
     vehicleService
       .getPurchases()
       .then((res) => {
-        setPurchases(res.data.data || []);
+        setPurchases(res.data || []);
       })
       .catch((err) => {
         console.error("Failed to fetch purchases:", err);
