@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://ai-kata-car-dealership-system-production.up.railway.app/api/:path*"
+      "destination": "https://aikatacardealershipsystem-production.up.railway.app/api/:path*"
     }
   ]
 }
