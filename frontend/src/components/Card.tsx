@@ -2,7 +2,7 @@ import type { HTMLAttributes, ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { cardHoverLift } from "../lib/motion";
 
-interface CardProps extends HTMLAttributes<HTMLDivElement> {
+interface CardProps extends Omit<HTMLAttributes<HTMLDivElement>, "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart"> {
   children: ReactNode;
   hoverable?: boolean;
 }
