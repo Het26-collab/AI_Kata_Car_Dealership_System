@@ -1,4 +1,4 @@
-import { apiClient } from "../api/client";
+import { apiClient, BASE_URL } from "../api/client";
 import type { ApiItemResponse, ApiListResponse } from "../types/api";
 import type { FleetStats, Vehicle, VehicleDraft, VehicleFilters } from "../types/vehicle";
 
@@ -50,7 +50,7 @@ export const vehicleService = {
 
   downloadQuote: async (id: string, payload: { downPayment: number; termMonths: number; creditTier: string; tradeInValue: number }) => {
     const token = localStorage.getItem("driveflow_token");
-    const response = await fetch(`/api/vehicles/${id}/quote`, {
+    const response = await fetch(`${BASE_URL}/vehicles/${id}/quote`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

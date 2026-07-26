@@ -38,7 +38,7 @@ export function VehicleTable({ vehicles, onRowClick }: VehicleTableProps) {
           {vehicles.map((vehicle) => (
             <tr
               key={vehicle.id}
-              className={`transition-colors ${onRowClick ? "cursor-pointer hover:bg-surface-container-low" : ""}`}
+              className={`transition-all duration-150 ${onRowClick ? "cursor-pointer hover:bg-surface-container-low hover:shadow-sm" : ""}`}
               onClick={() => onRowClick?.(vehicle)}
             >
               <td className="px-lg py-md">

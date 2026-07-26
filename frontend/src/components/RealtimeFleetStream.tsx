@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import type { Vehicle } from "../types/vehicle";
 import { formatCurrency } from "../utils/format";
 
@@ -18,6 +19,7 @@ interface RealtimeFleetStreamProps {
 export function RealtimeFleetStream({ vehicles }: RealtimeFleetStreamProps) {
   const [events, setEvents] = useState<FleetEvent[]>([]);
   const [isLive, setIsLive] = useState(true);
+  const prefersReduced = useReducedMotion();
 
   useEffect(() => {
     if (!vehicles || vehicles.length === 0) return;
@@ -90,31 +92,38 @@ export function RealtimeFleetStream({ vehicles }: RealtimeFleetStreamProps) {
       </div>
 
       <div className="space-y-sm">
-        {events.map((evt) => (
-          <div
-            key={evt.id}
-            className="flex items-start justify-between gap-md rounded-lg border border-outline-variant/50 p-sm transition-all hover:bg-surface-container-low"
-          >
-            <div className="flex items-start gap-md">
-              <div className="mt-xs flex h-8 w-8 items-center justify-center rounded-full bg-surface-container-high text-primary">
-                <span className="material-symbols-outlined text-[18px]">
-                  {evt.type === "purchase"
-                    ? "shopping_bag"
-                    : evt.type === "restock"
-                    ? "add_business"
-                    : evt.type === "new_arrival"
-                    ? "auto_awesome"
-                    : "update"}
-                </span>
+        <AnimatePresence mode="popLayout">
+          {events.map((evt) => (
+            <motion.div
+              key={evt.id}
+              layout={!prefersReduced}
+              initial={!prefersReduced ? { opacity: 0, y: -12, scale: 0.98 } : undefined}
+              animate={!prefersReduced ? { opacity: 1, y: 0, scale: 1 } : undefined}
+              exit={!prefersReduced ? { opacity: 0, scale: 0.98 } : undefined}
+              transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
+              className="flex items-start justify-between gap-md rounded-lg border border-outline-variant/50 p-sm transition-all hover:bg-surface-container-low"
+            >
+              <div className="flex items-start gap-md">
+                <div className="mt-xs flex h-8 w-8 items-center justify-center rounded-full bg-surface-container-high text-primary">
+                  <span className="material-symbols-outlined text-[18px]">
+                    {evt.type === "purchase"
+                      ? "shopping_bag"
+                      : evt.type === "restock"
+                      ? "add_business"
+                      : evt.type === "new_arrival"
+                      ? "auto_awesome"
+                      : "update"}
+                  </span>
+                </div>
+                <div>
+                  <p className="text-body-md font-semibold text-on-surface">{evt.title}</p>
+                  <p className="text-label-sm text-on-surface-variant">{evt.description}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-body-md font-semibold text-on-surface">{evt.title}</p>
-                <p className="text-label-sm text-on-surface-variant">{evt.description}</p>
-              </div>
-            </div>
-            <span className="text-label-sm font-medium text-on-surface-variant shrink-0">{evt.timestamp}</span>
-          </div>
-        ))}
+              <span className="text-label-sm font-medium text-on-surface-variant shrink-0">{evt.timestamp}</span>
+            </motion.div>
+          ))}
+        </AnimatePresence>
       </div>
     </div>
   );

@@ -1,5 +1,9 @@
 export function Skeleton({ className = "" }: { className?: string }) {
-  return <div className={`animate-pulse rounded-md bg-surface-container-high ${className}`} />;
+  return (
+    <div className={`rounded-md bg-surface-container-high ${className}`}>
+      <div className="skeleton-shimmer h-full w-full rounded-md" />
+    </div>
+  );
 }
 
 export function VehicleCardSkeleton() {

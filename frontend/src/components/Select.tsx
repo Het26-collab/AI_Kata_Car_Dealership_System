@@ -1,4 +1,5 @@
 import { forwardRef, type SelectHTMLAttributes } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
   label?: string;
@@ -25,7 +26,20 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
         >
           {children}
         </select>
-        {error && <p className="text-label-md text-error">{error}</p>}
+        <AnimatePresence mode="wait">
+          {error && (
+            <motion.p
+              key="error"
+              className="text-label-md text-error"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {error}
+            </motion.p>
+          )}
+        </AnimatePresence>
       </div>
     );
   }

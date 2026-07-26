@@ -1,11 +1,13 @@
 import { useState } from "react";
+import { motion, AnimatePresence, useReducedMotion } from "motion/react";
 import type { Vehicle } from "../types/vehicle";
-import { formatCurrency, maskVin, formatDate } from "../utils/format";
+import { formatCurrency, maskVin } from "../utils/format";
 import { StatusBadge } from "./StatusBadge";
 import { Button } from "./Button";
 import { DEFAULT_CAR_IMAGE, handleImageError } from "../utils/images";
 import { useAuth } from "../hooks/useAuth";
 import { FinancingQuotePanel } from "./FinancingQuotePanel";
+import { backdropVariants, drawerVariants, staggerContainer, staggerItem } from "../lib/motion";
 
 interface VehicleDetailsDrawerProps {
   vehicle: Vehicle | null;
@@ -24,17 +26,47 @@ export function VehicleDetailsDrawer({
   onRestock,
   isPurchasing = false,
 }: VehicleDetailsDrawerProps) {
-  if (!isOpen || !vehicle) return null;
+  const prefersReduced = useReducedMotion();
 
+  return (
+    <AnimatePresence>
+      {isOpen && vehicle && (
+        <DrawerContent
+          vehicle={vehicle}
+          onClose={onClose}
+          onPurchase={onPurchase}
+          onRestock={onRestock}
+          isPurchasing={isPurchasing}
+          prefersReduced={!!prefersReduced}
+        />
+      )}
+    </AnimatePresence>
+  );
+}
+
+function DrawerContent({
+  vehicle,
+  onClose,
+  onPurchase,
+  onRestock,
+  isPurchasing,
+  prefersReduced,
+}: {
+  vehicle: Vehicle;
+  onClose: () => void;
+  onPurchase: (vehicle: Vehicle) => void;
+  onRestock?: (vehicle: Vehicle) => void;
+  isPurchasing: boolean;
+  prefersReduced: boolean;
+}) {
   const { user } = useAuth();
   const isAdmin = user?.role === "admin";
 
   const [downPayment, setDownPayment] = useState<number>(5000);
   const [loanTerm, setLoanTerm] = useState<number>(60);
 
-  // Financial Estimation
   const principal = Math.max(0, vehicle.price - downPayment);
-  const interestRate = 0.059 / 12; // 5.9% APR
+  const interestRate = 0.059 / 12;
   const estimatedMonthly =
     principal > 0
       ? Math.round((principal * (interestRate * Math.pow(1 + interestRate, loanTerm))) / (Math.pow(1 + interestRate, loanTerm) - 1))
@@ -45,10 +77,23 @@ export function VehicleDetailsDrawer({
   return (
     <>
       {/* Backdrop */}
-      <div className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm transition-opacity" onClick={onClose} />
+      <motion.div
+        className="fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+        onClick={onClose}
+        variants={!prefersReduced ? backdropVariants : undefined}
+        initial={!prefersReduced ? "hidden" : undefined}
+        animate={!prefersReduced ? "visible" : undefined}
+        exit={!prefersReduced ? "exit" : undefined}
+      />
 
       {/* Slide-out Panel */}
-      <aside className="fixed inset-y-0 right-0 z-50 flex w-full max-w-lg flex-col border-l border-outline-variant bg-surface-container-lowest shadow-2xl transition-transform duration-300">
+      <motion.aside
+        className="fixed inset-y-0 right-0 z-50 flex w-full max-w-lg flex-col border-l border-outline-variant bg-surface-container-lowest shadow-2xl"
+        variants={!prefersReduced ? drawerVariants : undefined}
+        initial={!prefersReduced ? "hidden" : undefined}
+        animate={!prefersReduced ? "visible" : undefined}
+        exit={!prefersReduced ? "exit" : undefined}
+      >
         {/* Header */}
         <div className="flex items-center justify-between border-b border-outline-variant p-lg">
           <div>
@@ -68,9 +113,17 @@ export function VehicleDetailsDrawer({
         </div>
 
         {/* Content Body */}
-        <div className="flex-1 overflow-y-auto p-lg space-y-lg">
+        <motion.div
+          className="flex-1 overflow-y-auto p-lg space-y-lg"
+          variants={!prefersReduced ? staggerContainer : undefined}
+          initial={!prefersReduced ? "hidden" : undefined}
+          animate={!prefersReduced ? "visible" : undefined}
+        >
           {/* Hero Image */}
-          <div className="relative h-56 w-full overflow-hidden rounded-xl bg-surface-container border border-outline-variant/60">
+          <motion.div
+            className="relative h-56 w-full overflow-hidden rounded-xl bg-surface-container border border-outline-variant/60"
+            variants={!prefersReduced ? staggerItem : undefined}
+          >
             <img
               src={vehicle.image || DEFAULT_CAR_IMAGE}
               alt={`${vehicle.make} ${vehicle.model}`}
@@ -85,10 +138,10 @@ export function VehicleDetailsDrawer({
               <p className="text-label-sm uppercase tracking-wide opacity-80">MSRP Price</p>
               <p className="text-title-lg font-bold">{formatCurrency(vehicle.price)}</p>
             </div>
-          </div>
+          </motion.div>
 
           {/* Quick Specs Grid */}
-          <div>
+          <motion.div variants={!prefersReduced ? staggerItem : undefined}>
             <h3 className="text-title-md font-bold text-on-surface mb-sm">Technical Specifications</h3>
             <div className="grid grid-cols-2 gap-md rounded-xl border border-outline-variant bg-surface-container-low p-md">
               <div>
@@ -125,11 +178,13 @@ export function VehicleDetailsDrawer({
                 </p>
               </div>
             </div>
-          </div>
+          </motion.div>
 
           {/* Financing Quote & Loan Estimator */}
-          <FinancingQuotePanel vehicle={vehicle} />
-        </div>
+          <motion.div variants={!prefersReduced ? staggerItem : undefined}>
+            <FinancingQuotePanel vehicle={vehicle} />
+          </motion.div>
+        </motion.div>
 
         {/* Footer Actions */}
         <div className="flex items-center gap-md border-t border-outline-variant p-lg bg-surface-container-lowest">
@@ -151,7 +206,7 @@ export function VehicleDetailsDrawer({
             {isOutOfStock ? "Out of Stock" : "Purchase Unit"}
           </Button>
         </div>
-      </aside>
+      </motion.aside>
     </>
   );
 }

@@ -1,4 +1,6 @@
 import { forwardRef, type ButtonHTMLAttributes } from "react";
+import { motion, useReducedMotion } from "motion/react";
+import { tapScale } from "../lib/motion";
 
 type Variant = "primary" | "secondary" | "ghost" | "danger";
 type Size = "sm" | "md";
@@ -25,11 +27,17 @@ const sizeClasses: Record<Size, string> = {
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ variant = "primary", size = "md", isLoading, className = "", children, disabled, ...rest }, ref) => {
+    const prefersReduced = useReducedMotion();
+    const isDisabled = disabled || isLoading;
+
     return (
-      <button
+      <motion.button
         ref={ref}
-        disabled={disabled || isLoading}
-        className={`inline-flex items-center justify-center gap-sm font-medium transition-all duration-200 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:active:scale-100 ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
+        disabled={isDisabled}
+        whileTap={!isDisabled && !prefersReduced ? tapScale : undefined}
+        whileHover={!isDisabled && !prefersReduced ? { y: -1 } : undefined}
+        transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+        className={`inline-flex items-center justify-center gap-sm font-medium transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed ${variantClasses[variant]} ${sizeClasses[size]} ${className}`}
         {...rest}
       >
         {isLoading && (
@@ -39,7 +47,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           />
         )}
         {children}
-      </button>
+      </motion.button>
     );
   }
 );

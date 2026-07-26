@@ -1,4 +1,5 @@
 import { forwardRef, type InputHTMLAttributes } from "react";
+import { motion, AnimatePresence } from "motion/react";
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
@@ -34,16 +35,34 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             {...rest}
           />
         </div>
-        {error && (
-          <p id={`${inputId}-error`} className="text-label-md text-error">
-            {error}
-          </p>
-        )}
-        {!error && hint && (
-          <p id={`${inputId}-hint`} className="text-label-md text-on-surface-variant">
-            {hint}
-          </p>
-        )}
+        <AnimatePresence mode="wait">
+          {error && (
+            <motion.p
+              key="error"
+              id={`${inputId}-error`}
+              className="text-label-md text-error"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {error}
+            </motion.p>
+          )}
+          {!error && hint && (
+            <motion.p
+              key="hint"
+              id={`${inputId}-hint`}
+              className="text-label-md text-on-surface-variant"
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -4 }}
+              transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {hint}
+            </motion.p>
+          )}
+        </AnimatePresence>
       </div>
     );
   }

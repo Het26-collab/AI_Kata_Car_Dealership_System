@@ -1,3 +1,5 @@
+import { useState, useEffect } from "react";
+
 interface BarDatum {
   label: string;
   value: number;
@@ -9,6 +11,14 @@ export function SalesBarChart({ data, highlightLabel }: { data: BarDatum[]; high
   const height = 220;
   const barGap = 18;
   const barWidth = (width - barGap * (data.length - 1)) / data.length;
+
+  // Animate bars growing upward on mount / data change
+  const [animated, setAnimated] = useState(false);
+  useEffect(() => {
+    setAnimated(false);
+    const raf = requestAnimationFrame(() => setAnimated(true));
+    return () => cancelAnimationFrame(raf);
+  }, [data]);
 
   return (
     <svg viewBox={`0 0 ${width} ${height + 24}`} className="w-full" role="img" aria-label="Monthly sales performance">
@@ -31,11 +41,14 @@ export function SalesBarChart({ data, highlightLabel }: { data: BarDatum[]; high
           <g key={d.label}>
             <rect
               x={x}
-              y={height - barHeight}
+              y={animated ? height - barHeight : height}
               width={barWidth}
-              height={barHeight}
+              height={animated ? barHeight : 0}
               rx={4}
               fill={isHighlighted ? "#2563eb" : "#dbeafe"}
+              style={{
+                transition: `y 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.06}s, height 0.6s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.06}s`,
+              }}
             />
             <text
               x={x + barWidth / 2}
