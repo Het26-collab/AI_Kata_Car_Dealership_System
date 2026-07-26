@@ -1,4 +1,10 @@
 {
+  "name": "car-dealership-inventory",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix backend install && npm --prefix backend run prisma:generate && npm --prefix backend run prisma:seed",
+    "start": "npm --prefix backend start"
+  },
   "devDependencies": {
     "@testing-library/jest-dom": "^7.0.0",
     "@testing-library/react": "^16.3.2",
