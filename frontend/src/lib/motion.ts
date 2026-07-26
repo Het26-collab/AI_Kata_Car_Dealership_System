@@ -1,186 +1,297 @@
 /**
- * DriveFlow Motion Design System
- * ─────────────────────────────────
- * Centralized motion configuration for a cohesive, premium animation language.
- * Inspired by Linear, Stripe Dashboard, Vercel, and Framer.
+ * DriveFlow Centralized Enterprise Motion System
+ * ──────────────────────────────────────────────────
+ * Production-ready animation tokens and variants.
+ * Inspired by Linear, Stripe Dashboard, Vercel, Apple, and Framer.
  *
- * All animations use GPU-accelerated properties (transform, opacity) for 60 FPS.
- * Every variant respects prefers-reduced-motion via the useReducedMotion hook.
+ * All animations are 60 FPS GPU-accelerated (opacity, transform).
+ * Built with full prefers-reduced-motion accessibility support.
  */
 
 import type { Variants, Transition } from "motion/react";
 
-// ── Easing Curves ─────────────────────────────────────────────────────────────
-export const ease = {
-  out: [0.16, 1, 0.3, 1] as [number, number, number, number],
-  inOut: [0.4, 0, 0.2, 1] as [number, number, number, number],
-  in: [0.4, 0, 1, 1] as [number, number, number, number],
+// ── Easing Tokens ──────────────────────────────────────────────────────────────
+export const easings = {
+  easeOut: [0.16, 1, 0.3, 1] as [number, number, number, number],
+  easeInOut: [0.4, 0, 0.2, 1] as [number, number, number, number],
+  easeIn: [0.4, 0, 1, 1] as [number, number, number, number],
 };
 
-// ── Duration Tokens (in seconds) ──────────────────────────────────────────────
-export const duration = {
-  fast: 0.15,
-  normal: 0.2,
-  medium: 0.4,
-  slow: 0.7,
+export const ease = easings;
+
+// ── Duration Tokens (in seconds) ───────────────────────────────────────────────
+export const durations = {
+  fast: 0.15,    // 150ms
+  normal: 0.25,  // 250ms
+  medium: 0.4,   // 400ms
+  slow: 0.6,     // 600ms
+  extra: 0.8,    // 800ms
 };
 
-// ── Shared Transitions ────────────────────────────────────────────────────────
-export const spring = {
-  gentle: { type: "spring", stiffness: 300, damping: 30 } as Transition,
+export const duration = durations;
+
+// ── Shared Transitions ─────────────────────────────────────────────────────────
+export const transitions = {
+  fast: { duration: durations.fast, ease: easings.easeOut } as Transition,
+  normal: { duration: durations.normal, ease: easings.easeOut } as Transition,
+  medium: { duration: durations.medium, ease: easings.easeOut } as Transition,
+  slow: { duration: durations.slow, ease: easings.easeOut } as Transition,
 };
 
-export const transition = {
-  fast: { duration: duration.fast, ease: ease.out } as Transition,
-  normal: { duration: duration.normal, ease: ease.out } as Transition,
-  medium: { duration: duration.medium, ease: ease.out } as Transition,
-  slow: { duration: duration.slow, ease: ease.out } as Transition,
-};
+export const transition = transitions;
 
-// ── Reusable Variants ─────────────────────────────────────────────────────────
+// ── Reusable Motion Variants ───────────────────────────────────────────────────
 
-/** Fade in + translate up — the primary entrance animation */
-export const fadeInUp: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: duration.medium, ease: ease.out },
-  },
-  exit: {
-    opacity: 0,
-    y: -8,
-    transition: { duration: duration.normal, ease: ease.in },
-  },
-};
-
-/** Subtle fade in — for secondary elements */
+/** Subtle Fade In */
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
-    transition: { duration: duration.medium, ease: ease.out },
+    transition: { duration: durations.medium, ease: easings.easeOut },
   },
   exit: {
     opacity: 0,
-    transition: { duration: duration.fast, ease: ease.in },
+    transition: { duration: durations.fast, ease: easings.easeIn },
   },
 };
 
-/** Stagger container — orchestrates children entrance */
+/** Fade In + Translate Up (Primary entrance animation) */
+export const fadeUp: Variants = {
+  hidden: { opacity: 0, y: 16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: durations.medium, ease: easings.easeOut },
+  },
+  exit: {
+    opacity: 0,
+    y: -8,
+    transition: { duration: durations.normal, ease: easings.easeIn },
+  },
+};
+
+export const fadeInUp = fadeUp;
+
+/** Fade In + Translate Down */
+export const fadeDown: Variants = {
+  hidden: { opacity: 0, y: -16 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: durations.medium, ease: easings.easeOut },
+  },
+  exit: {
+    opacity: 0,
+    y: 8,
+    transition: { duration: durations.normal, ease: easings.easeIn },
+  },
+};
+
+/** Slide Left */
+export const slideLeft: Variants = {
+  hidden: { opacity: 0, x: 20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: durations.normal, ease: easings.easeOut },
+  },
+  exit: {
+    opacity: 0,
+    x: -20,
+    transition: { duration: durations.fast, ease: easings.easeIn },
+  },
+};
+
+/** Slide Right */
+export const slideRight: Variants = {
+  hidden: { opacity: 0, x: -20 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: durations.normal, ease: easings.easeOut },
+  },
+  exit: {
+    opacity: 0,
+    x: 20,
+    transition: { duration: durations.fast, ease: easings.easeIn },
+  },
+};
+
+/** Stagger Container Orchestrator */
 export const staggerContainer: Variants = {
   hidden: { opacity: 1 },
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.06,
-      delayChildren: 0.04,
+      staggerChildren: 0.05,
+      delayChildren: 0.03,
     },
   },
 };
 
-/** Stagger item — pairs with staggerContainer */
+/** Stagger Child Item */
 export const staggerItem: Variants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 12 },
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: duration.medium, ease: ease.out },
+    transition: { duration: durations.medium, ease: easings.easeOut },
   },
 };
 
-/** Page transition variant */
-export const pageTransition: Variants = {
-  initial: { opacity: 0, y: 12 },
-  animate: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.3, ease: ease.out },
-  },
-  exit: {
-    opacity: 0,
-    y: -8,
-    transition: { duration: duration.normal, ease: ease.in },
-  },
-};
-
-/** Modal overlay backdrop */
-export const backdropVariants: Variants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { duration: duration.normal, ease: ease.out } },
-  exit: { opacity: 0, transition: { duration: duration.fast, ease: ease.in } },
-};
-
-/** Modal / dialog panel */
-export const modalPanelVariants: Variants = {
+/** Modal / Dialog Animation */
+export const modalAnimation: Variants = {
   hidden: { opacity: 0, scale: 0.96, y: 8 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: 0.25, ease: ease.out },
+    transition: { duration: durations.normal, ease: easings.easeOut },
   },
   exit: {
     opacity: 0,
     scale: 0.96,
     y: 8,
-    transition: { duration: duration.fast, ease: ease.in },
+    transition: { duration: durations.fast, ease: easings.easeIn },
   },
 };
 
-/** Drawer slide in from right */
-export const drawerVariants: Variants = {
+export const modalPanelVariants = modalAnimation;
+export const backdropVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1, transition: { duration: durations.normal, ease: easings.easeOut } },
+  exit: { opacity: 0, transition: { duration: durations.fast, ease: easings.easeIn } },
+};
+
+/** Drawer Slide Animation */
+export const drawerAnimation: Variants = {
   hidden: { x: "100%" },
   visible: {
     x: 0,
-    transition: { duration: 0.3, ease: ease.out },
+    transition: { duration: 0.3, ease: easings.easeOut },
   },
   exit: {
     x: "100%",
-    transition: { duration: 0.25, ease: ease.in },
+    transition: { duration: durations.normal, ease: easings.easeIn },
   },
 };
 
-/** Toast notification */
-export const toastVariants: Variants = {
-  hidden: { opacity: 0, y: -8, scale: 0.98 },
+export const drawerVariants = drawerAnimation;
+
+/** Tooltip Animation */
+export const tooltipAnimation: Variants = {
+  hidden: { opacity: 0, y: 4, scale: 0.96 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
-    transition: { duration: duration.normal, ease: ease.out },
+    transition: { duration: durations.fast, ease: easings.easeOut },
   },
   exit: {
     opacity: 0,
-    x: 80,
-    transition: { duration: duration.fast, ease: ease.in },
+    y: 2,
+    scale: 0.96,
+    transition: { duration: 0.1, ease: easings.easeIn },
   },
 };
 
-/** Dropdown menu */
-export const dropdownVariants: Variants = {
-  hidden: { opacity: 0, scale: 0.98, y: -4 },
+/** Toast Notification Animation */
+export const toastAnimation: Variants = {
+  hidden: { opacity: 0, y: -12, scale: 0.97 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: durations.normal, ease: easings.easeOut },
+  },
+  exit: {
+    opacity: 0,
+    x: 60,
+    transition: { duration: durations.fast, ease: easings.easeIn },
+  },
+};
+
+export const toastVariants = toastAnimation;
+
+/** Dropdown Menu Animation */
+export const dropdownAnimation: Variants = {
+  hidden: { opacity: 0, scale: 0.97, y: -4 },
   visible: {
     opacity: 1,
     scale: 1,
     y: 0,
-    transition: { duration: duration.fast, ease: ease.out },
+    transition: { duration: durations.fast, ease: easings.easeOut },
   },
   exit: {
     opacity: 0,
-    scale: 0.98,
+    scale: 0.97,
     y: -4,
-    transition: { duration: 0.1, ease: ease.in },
+    transition: { duration: 0.1, ease: easings.easeIn },
   },
 };
 
-// ── Hover / Tap Helpers ───────────────────────────────────────────────────────
+export const dropdownVariants = dropdownAnimation;
 
-/** Standard button tap scale */
-export const tapScale = { scale: 0.97 };
+/** Page Transition Animation */
+export const pageTransition: Variants = {
+  initial: { opacity: 0, y: 12 },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: durations.normal, ease: easings.easeOut },
+  },
+  exit: {
+    opacity: 0,
+    y: -8,
+    transition: { duration: durations.fast, ease: easings.easeIn },
+  },
+};
 
-/** Subtle hover lift for cards and buttons */
-export const hoverLift = { y: -2, transition: { duration: duration.fast, ease: ease.out } };
+/** List Item Animation */
+export const listAnimation: Variants = {
+  hidden: { opacity: 0, x: -10 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: durations.normal, ease: easings.easeOut },
+  },
+  exit: {
+    opacity: 0,
+    x: 10,
+    transition: { duration: durations.fast, ease: easings.easeIn },
+  },
+};
 
-/** Card hover lift — slightly more pronounced */
-export const cardHoverLift = { y: -4, transition: { duration: duration.fast, ease: ease.out } };
+/** Accordion Content Expand Animation */
+export const accordionAnimation: Variants = {
+  hidden: { opacity: 0, height: 0 },
+  visible: {
+    opacity: 1,
+    height: "auto",
+    transition: { duration: durations.medium, ease: easings.easeOut },
+  },
+  exit: {
+    opacity: 0,
+    height: 0,
+    transition: { duration: durations.normal, ease: easings.easeIn },
+  },
+};
+
+// ── Shared Interactive Hover & Tap Utilities ───────────────────────────────────
+
+export const buttonHover = {
+  scale: 1.01,
+  y: -1,
+  transition: { duration: durations.fast, ease: easings.easeOut },
+};
+
+export const buttonTap = { scale: 0.97 };
+export const tapScale = buttonTap;
+
+export const cardHover = {
+  y: -4,
+  transition: { duration: durations.fast, ease: easings.easeOut },
+};
+
+export const cardHoverLift = cardHover;
+export const hoverLift = { y: -2, transition: { duration: durations.fast, ease: easings.easeOut } };
