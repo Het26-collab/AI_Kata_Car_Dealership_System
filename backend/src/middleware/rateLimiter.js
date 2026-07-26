@@ -6,7 +6,7 @@ export const authRateLimiter = rateLimit({
   standardHeaders: true,
   legacyHeaders: false,
   message: {
-    error: "Too many authentication requests. Please wait a few minutes before trying again.",
+    error: "Too many requests, please try again later.",
   },
   statusCode: 429,
 });
