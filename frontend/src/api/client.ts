@@ -3,12 +3,21 @@ import type { ApiErrorResponse } from "../types/api";
 // In dev, Vite proxies /api -> http://localhost:4000 (see vite.config.ts),
 // so a relative base URL works for both dev and a same-origin production
 // deployment. Override with VITE_API_URL if the backend is hosted elsewhere.
-const defaultApiUrl = import.meta.env.DEV
-  ? "/api"
-  : "https://aikatacardealershipsystem-production.up.railway.app/api";
+const PRODUCTION_RAILWAY_URL = "https://aikatacardealershipsystem-production.up.railway.app/api";
 
-const rawApiUrl = (import.meta.env.VITE_API_URL || defaultApiUrl).replace(/\/+$/, "");
-export const BASE_URL = rawApiUrl.endsWith("/api") ? rawApiUrl : `${rawApiUrl}/api`;
+function getBaseUrl(): string {
+  if (import.meta.env.DEV) {
+    return "/api";
+  }
+  const envUrl = import.meta.env.VITE_API_URL;
+  if (envUrl && typeof envUrl === "string" && envUrl.startsWith("http")) {
+    const clean = envUrl.replace(/\/+$/, "");
+    return clean.endsWith("/api") ? clean : `${clean}/api`;
+  }
+  return PRODUCTION_RAILWAY_URL;
+}
+
+export const BASE_URL = getBaseUrl();
 
 export class ApiError extends Error {
   status: number;
