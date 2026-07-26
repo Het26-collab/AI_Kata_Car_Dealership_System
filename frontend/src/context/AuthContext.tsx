@@ -22,7 +22,13 @@ export const AuthContext = createContext<AuthContextValue | undefined>(undefined
 function readStoredUser(): User | null {
   try {
     const raw = localStorage.getItem(USER_KEY);
-    return raw ? (JSON.parse(raw) as User) : null;
+    if (!raw) return null;
+    const parsed = JSON.parse(raw) as User;
+    if (parsed && (parsed.name === "Victoria Chen" || (parsed.role === "admin" && (!parsed.name || parsed.name === "Fleet Manager")))) {
+      parsed.name = "Het Dedania";
+      localStorage.setItem(USER_KEY, JSON.stringify(parsed));
+    }
+    return parsed;
   } catch {
     return null;
   }

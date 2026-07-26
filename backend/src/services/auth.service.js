@@ -8,10 +8,14 @@ const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const JWT_SECRET = process.env.JWT_SECRET ?? "dev-jwt-secret";
 
 function sanitizeUser(user) {
+  const userName = (!user.name || user.name === "Victoria Chen" || user.name === "Fleet Manager") && user.role === "admin"
+    ? "Het Dedania"
+    : user.name;
+
   return {
     id: user.id,
     email: user.email,
-    name: user.name || (user.role === "admin" ? "Het Dedania" : "Valued Client"),
+    name: userName || (user.role === "admin" ? "Het Dedania" : "Valued Client"),
     role: user.role,
     dealership: user.dealership || "Global Motors",
     avatar: user.avatar || "",
