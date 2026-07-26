@@ -11,7 +11,7 @@ function sanitizeUser(user) {
   return {
     id: user.id,
     email: user.email,
-    name: user.name || (user.role === "admin" ? "Fleet Manager" : "Valued Client"),
+    name: user.name || (user.role === "admin" ? "Het Dedania" : "Valued Client"),
     role: user.role,
     dealership: user.dealership || "Global Motors",
     avatar: user.avatar || "",
