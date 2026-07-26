@@ -14,6 +14,7 @@ import { exportVehiclesToCsv } from "../utils/export";
 import { VehicleFormModal } from "../components/VehicleFormModal";
 import { useToast } from "../hooks/useToast";
 import { useAuth } from "../hooks/useAuth";
+import { AnimatedNumber } from "../components/AnimatedNumber";
 import type { Vehicle, VehicleDraft } from "../types/vehicle";
 
 import { RealtimeFleetStream } from "../components/RealtimeFleetStream";
@@ -179,14 +180,14 @@ export function DashboardPage() {
             <KpiCard
               icon="directions_car"
               label="Total Units"
-              value={formatNumber(dynamicTotalUnits)}
+              value={<AnimatedNumber value={dynamicTotalUnits} format={formatNumber} />}
               tone="primary"
               trailing={<span className="text-label-md text-on-surface-variant">{stats.totalModels} models</span>}
             />
             <KpiCard
               icon="check_circle"
               label="Available"
-              value={formatNumber(dynamicAvailable)}
+              value={<AnimatedNumber value={dynamicAvailable} format={formatNumber} />}
               tone="success"
               trailing={
                 <span className="text-label-md text-on-surface-variant">
@@ -197,14 +198,14 @@ export function DashboardPage() {
             <KpiCard
               icon="warning"
               label="Low Stock"
-              value={formatNumber(dynamicLowStock)}
+              value={<AnimatedNumber value={dynamicLowStock} format={formatNumber} />}
               tone="warning"
               trailing={<span className="text-label-md text-on-surface-variant">models &lt; 3 qty</span>}
             />
             <KpiCard
               icon="account_balance_wallet"
               label="Portfolio Value"
-              value={formatCurrency(dynamicTotalValue)}
+              value={<AnimatedNumber value={dynamicTotalValue} format={formatCurrency} />}
               tone="primary"
             />
           </>

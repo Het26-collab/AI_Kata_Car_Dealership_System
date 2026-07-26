@@ -11,6 +11,8 @@ import { formatNumber, formatCurrency, maskVin } from "../utils/format";
 import { exportVehiclesToCsv } from "../utils/export";
 import { useToast } from "../hooks/useToast";
 
+import { AnimatedNumber } from "../components/AnimatedNumber";
+
 const TIMEFRAMES = ["All Time", "Q3 2026", "YTD 2026", "Last 30 Days"];
 
 export function AnalyticsPage() {
@@ -132,14 +134,14 @@ export function AnalyticsPage() {
             <KpiCard
               icon="account_balance_wallet"
               label="Total Fleet Valuation"
-              value={formatCurrency(totalValue)}
+              value={<AnimatedNumber value={totalValue} format={formatCurrency} />}
               tone="primary"
               trailing={<span className="text-label-md text-emerald-600 font-semibold">{tfConfig.growth}</span>}
             />
             <KpiCard
               icon="sell"
               label="Average Vehicle Price"
-              value={formatCurrency(avgPrice)}
+              value={<AnimatedNumber value={avgPrice} format={formatCurrency} />}
               tone="primary"
               trailing={<span className="text-label-md text-on-surface-variant">{topVehicles.length} models active</span>}
             />
@@ -153,7 +155,7 @@ export function AnalyticsPage() {
             <KpiCard
               icon="inventory_2"
               label="Total Inventory Units"
-              value={formatNumber(totalUnits)}
+              value={<AnimatedNumber value={totalUnits} format={formatNumber} />}
               tone="primary"
               trailing={
                 <span className="text-label-md text-on-surface-variant">
