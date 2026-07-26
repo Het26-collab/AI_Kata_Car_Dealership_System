@@ -3,7 +3,7 @@ import { DndContext, DragOverlay, closestCorners, KeyboardSensor, PointerSensor,
 import { SortableContext, arrayMove, sortableKeyboardCoordinates, verticalListSortingStrategy } from "@dnd-kit/sortable";
 import { DashboardLayout } from "../layouts/DashboardLayout";
 import { useVehicles } from "../hooks/useVehicles";
-import type { Vehicle } from "../types/vehicle";
+import type { Vehicle, VehicleStatus } from "../types/vehicle";
 import { SortableVehicleCard } from "../components/pipeline/SortableVehicleCard";
 import { PipelineColumn } from "../components/pipeline/PipelineColumn";
 import { useToast } from "../hooks/useToast";
@@ -70,14 +70,15 @@ export function PipelinePage() {
       const activeIndex = activeItems.findIndex((v) => v.id === activeId);
       const overIndex = overItems.findIndex((v) => v.id === overId);
       
-      let newIndex = overIndex >= 0 ? overIndex : overItems.length + 1;
+      let newIndex = overIndex >= 0 ? overIndex : overItems.length;
+      const movedItem = { ...activeItems[activeIndex], status: overContainer };
       
       return {
         ...prev,
-        [activeContainer]: [...prev[activeContainer].filter((item) => item.id !== activeId)],
+        [activeContainer]: prev[activeContainer].filter((item) => item.id !== activeId),
         [overContainer]: [
           ...prev[overContainer].slice(0, newIndex),
-          activeItems[activeIndex],
+          movedItem,
           ...prev[overContainer].slice(newIndex, prev[overContainer].length),
         ],
       };
@@ -88,51 +89,28 @@ export function PipelinePage() {
     const { active, over } = event;
     setActiveId(null);
     if (!isAdmin) return;
-    
     if (!over) return;
     
-    const activeId = active.id;
-    const overId = over.id;
-    
-    const activeContainer = findContainer(activeId);
-    const overContainer = findContainer(overId) || overId;
-    
-    if (!activeContainer || !overContainer) return;
+    const targetId = active.id;
+    // Find container where the item currently resides after drag
+    const currentContainer = findContainer(targetId);
+    if (!currentContainer) return;
 
-    if (activeContainer === overContainer) {
-      const activeIndex = items[activeContainer].findIndex((v) => v.id === activeId);
-      const overIndex = items[overContainer].findIndex((v) => v.id === overId);
-      
-      if (activeIndex !== overIndex) {
-        setItems((items) => ({
-          ...items,
-          [overContainer]: arrayMove(items[overContainer], activeIndex, overIndex),
-        }));
-      }
-    } else {
-      // It moved across columns. We need to update vehicle status and save to backend!
-      setItems((prev) => {
-        const updatedOver = prev[overContainer].map((v) =>
-          v.id === activeId ? { ...v, status: overContainer } : v
-        );
-        return {
-          ...prev,
-          [overContainer]: updatedOver,
-        };
-      });
-
+    // Check actual vehicle object in backend dataset to see if container changed
+    const targetVehicle = vehicles.find((v) => v.id === targetId);
+    if (targetVehicle && targetVehicle.status !== currentContainer) {
       try {
-        await updateVehicle(activeId, { status: overContainer });
+        await updateVehicle(targetId, { status: currentContainer as VehicleStatus });
         showToast({
           variant: "success",
           title: "Status Updated",
-          description: `Vehicle moved to ${overContainer}.`,
+          description: `${targetVehicle.year} ${targetVehicle.make} ${targetVehicle.model} status updated to ${currentContainer}.`,
         });
       } catch (err) {
         showToast({
           variant: "error",
           title: "Update Failed",
-          description: "Failed to save the status change.",
+          description: "Failed to persist pipeline status change.",
         });
       }
     }
