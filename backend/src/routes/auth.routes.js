@@ -9,6 +9,7 @@ const router = Router();
 
 router.post("/register", authRateLimiter, validate(registerSchema), AuthController.register);
 router.post("/login", authRateLimiter, validate(loginSchema), AuthController.login);
+router.post("/forgot-password", authRateLimiter, AuthController.forgotPassword);
 router.get("/me", requireAuth, AuthController.me);
 
 export default router;

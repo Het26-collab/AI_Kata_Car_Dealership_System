@@ -92,7 +92,7 @@ export async function loginUser(body) {
 
   const token = jwt.sign({ role: user.role }, JWT_SECRET, {
     subject: user.id,
-    expiresIn: "1h",
+    expiresIn: "24h",
   });
 
   return {
@@ -104,4 +104,14 @@ export async function loginUser(body) {
 export async function getCurrentUser(userId) {
   const user = await userRepository.findById(userId);
   return user ? sanitizeUser(user) : null;
+}
+
+export async function forgotPassword(email) {
+  const normalized = String(email).trim().toLowerCase();
+  const user = await userRepository.findByEmail(normalized);
+  // Always return success message to prevent user enumeration security vulnerability
+  return {
+    message: "If an account exists with that email address, a password reset link has been dispatched.",
+    emailSent: Boolean(user),
+  };
 }

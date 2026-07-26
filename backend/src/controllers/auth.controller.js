@@ -48,3 +48,16 @@ export async function me(req, res, next) {
     next(error);
   }
 }
+
+export async function forgotPassword(req, res, next) {
+  try {
+    const { email } = req.body || {};
+    if (!email) {
+      return res.status(400).json({ error: "Email is required." });
+    }
+    const result = await authService.forgotPassword(email);
+    res.json({ data: result });
+  } catch (error) {
+    next(error);
+  }
+}

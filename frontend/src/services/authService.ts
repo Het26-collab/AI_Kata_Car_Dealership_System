@@ -8,5 +8,8 @@ export const authService = {
   login: (payload: LoginPayload) =>
     apiClient.post<ApiItemResponse<AuthResult>>("/auth/login", payload).then((r) => r.data),
 
+  forgotPassword: (email: string) =>
+    apiClient.post<ApiItemResponse<{ message: string; emailSent: boolean }>>("/auth/forgot-password", { email }).then((r) => r.data),
+
   me: () => apiClient.get<ApiItemResponse<User>>("/auth/me").then((r) => r.data),
 };
