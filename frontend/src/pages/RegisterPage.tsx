@@ -129,10 +129,10 @@ export function RegisterPage() {
       >
         {/* Brand Header */}
         <motion.div className="flex flex-col items-center text-center" variants={!prefersReduced ? staggerItem : undefined}>
-          <div className="flex h-16 w-full items-center justify-center rounded-xl bg-surface-container-low p-sm border border-outline-variant/60 shadow-sm">
-            <img src="/Logo_GM.png" alt="Global Motors Logo" className="h-12 w-auto object-contain" />
+          <div className="flex items-center justify-center py-sm overflow-visible">
+            <img src="/Logo_GM.png" alt="Global Motors Logo" className="h-48 w-auto max-w-[450px] object-contain mix-blend-multiply drop-shadow-md scale-125 transform" />
           </div>
-          <h2 className="mt-xl text-headline-sm font-bold text-on-surface">Get started with DriveFlow</h2>
+          <h2 className="mt-md text-headline-sm font-bold text-on-surface">Get started with DriveFlow</h2>
           <p className="mt-xs text-body-md text-on-surface-variant">Register to access enterprise fleet workflows</p>
         </motion.div>
 
