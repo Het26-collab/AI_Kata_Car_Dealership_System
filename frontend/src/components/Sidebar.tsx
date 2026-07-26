@@ -43,15 +43,15 @@ export function Sidebar({ onAddVehicle, isOpen, onCloseMobile }: SidebarProps) {
               to={item.to}
               onClick={onCloseMobile}
               className={({ isActive }) =>
-                `flex items-center gap-md rounded-xl px-md py-md text-label-lg transition-all duration-200 ${
+                `group flex items-center gap-md rounded-xl px-md py-md text-label-lg transition-all duration-200 ease-out active:scale-[0.97] ${
                   isActive
-                    ? "bg-primary text-on-primary font-bold shadow-md shadow-primary/20"
-                    : "text-slate-700 dark:text-slate-200 font-semibold hover:bg-surface-container-high hover:text-primary"
+                    ? "bg-primary text-on-primary font-bold shadow-md shadow-primary/20 scale-[1.01]"
+                    : "text-slate-700 dark:text-slate-200 font-semibold hover:bg-surface-container-high hover:text-primary hover:translate-x-1 hover:shadow-sm"
                 }`
               }
             >
-              <span className="material-symbols-outlined text-[22px]">{item.icon}</span>
-              <span>{item.label}</span>
+              <span className="material-symbols-outlined text-[22px] transition-transform duration-200 group-hover:scale-110 group-active:scale-95">{item.icon}</span>
+              <span className="transition-all duration-200">{item.label}</span>
             </NavLink>
           ))}
         </nav>
